@@ -13,22 +13,41 @@
                 Text="Welcome to JukaApp v0.0.1"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center">
+
+                <Label.Shadow>
+                    <Shadow
+                    Radius="10"
+                    Opacity="1"
+                    Brush="#00e0bb"
+                    Offset="-10, 10"
+                     />
+                </Label.Shadow>
+            </Label>
 
             <Editor x:Name="codeeditor"
                 Placeholder="Enter your code here"
                 HeightRequest="250"
                  />
 
-            <Label x:Name="outputText"
-                FontSize="16"
-                HorizontalOptions="Center" />
-
             <Button 
                 x:Name="RunJukaBtn"
-                Text="Run Code"
+                Text="Run Juka Code"
                 SemanticProperties.Hint="Run Juka Code"
                 Clicked="OnCounterClicked"
+                HorizontalOptions="Center"
+                CornerRadius="5">
+                <Button.Shadow>
+                    <Shadow
+                    Radius="10"
+                    Opacity="1"
+                    Brush="#00e0bb"
+                    Offset="-10, 10"
+                     />
+                </Button.Shadow>
+            </Button>
+            <Label x:Name="outputText"
+                FontSize="16"
                 HorizontalOptions="Center" />
 
         </VerticalStackLayout>

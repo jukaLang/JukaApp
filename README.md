@@ -4,7 +4,7 @@
 
 Official Website: https://jukalang.com
 
-![jukaApp](https://user-images.githubusercontent.com/11934545/179383643-1e0c26a3-e7bd-42a3-b690-01df6f86ce72.png)
+![jukaApp](https://user-images.githubusercontent.com/11934545/179396687-e7a7008e-0816-46f5-8648-bce4e3217ace.png)
 
 
 Uses https://github.com/jukaLang/juka to create Apps with GUI

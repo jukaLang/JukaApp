@@ -7,7 +7,7 @@
     Shell.FlyoutBehavior="Disabled">
 
     <ShellContent
-        Title="Home"
+        Title="JukaApp"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
