@@ -15,6 +15,7 @@ task:
     script:
     - ./dotnet workload restore
     - ./dotnet publish -f net6.0-android -c Release
+    - Get-Location
     package_script:
     - mv C:/Users/ContainerAdministrator/AppData/Local/Temp/cirrus-ci-build/bin/Release/net6.0-android/publish/com.companyname.jukaapp-Signed.apk C:/Users/ContainerAdministrator/AppData/Local/Temp/cirrus-ci-build/bin/Release/net6.0-android/publish/Juka_${env:package_version}.apk
     upload_script: |
