@@ -8,8 +8,8 @@ task:
     env:
         CIRRUS_SHELL: powershell    
     setup_script:
-    - choco install android-sdk
-    - choco install dotnet --pre 
+    - choco install -y android-sdk
+    - choco install -y dotnet --pre 
     script:
     - dotnet workload restore
     - dotnet publish -f net6.0-android -c Release
