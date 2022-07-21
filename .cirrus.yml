@@ -16,7 +16,7 @@ task:
     - ./dotnet workload restore
     - ./dotnet publish -f net6.0-android -c Release
     package_script:
-    - mv /tmp/cirrus-ci-build/bin/Release/net6.0-android/publish/com.companyname.jukaapp-Signed.apk /tmp/cirrus-ci-build/bin/Release/net6.0-android/publish/Juka_${env:package_version}.apk
+    - mv C:/Users/ContainerAdministrator/AppData/Local/Temp/cirrus-ci-build/bin/Release/net6.0-android/publish/com.companyname.jukaapp-Signed.apk C:/Users/ContainerAdministrator/AppData/Local/Temp/cirrus-ci-build/bin/Release/net6.0-android/publish/Juka_${env:package_version}.apk
     upload_script: |
         #!/usr/bin/env bash
 
