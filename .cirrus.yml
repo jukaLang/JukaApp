@@ -6,6 +6,7 @@ task:
     environment:
       - GITHUB_TOKEN: ENCRYPTED[38a5a4b83d9859dccc98655bdc993fb9da11ad43d0c787473b692f45732505f167335e45564474e9f3a1cbe7a883b3ae]
     setup_script:
+    - mkdir /dotnet
     - apt-get update
     - apt-get install -y wget curl jq
     - export JUKTEMP=$(curl "https://api.github.com/repos/JukaLang/juka/releases/latest" | jq -r ".tag_name")
