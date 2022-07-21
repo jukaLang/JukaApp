@@ -11,33 +11,35 @@ task:
     - sudo tar xf dotnet-sdk-7.0.100-preview.6.22352.1-linux-x64.tar.gz -C /dotnet/
     script:
     - /dotnet/dotnet -f net6.0-android -c Release
+    package_script:
     - mv /tmp/cirrus-ci-build/bin/Release/net6.0-android/publish/com.companyname.jukaapp-Signed.apk /tmp/cirrus-ci-build/bin/Release/net6.0-android/publish/Juka_${JUKTEMP}.apk
-    package_script: |
+    upload_script: |
+    #!/usr/bin/env bash
 
-if [[ "$CIRRUS_RELEASE" == "" ]]; then
-  echo "Not a release. No need to deploy!"
-  exit 0
-fi
+    if [[ "$CIRRUS_RELEASE" == "" ]]; then
+        echo "Not a release. No need to deploy!"
+        exit 0
+    fi
 
-if [[ "$GITHUB_TOKEN" == "" ]]; then
-  echo "Please provide GitHub access token via GITHUB_TOKEN environment variable!"
-  exit 1
-fi
+    if [[ "$GITHUB_TOKEN" == "" ]]; then
+        echo "Please provide GitHub access token via GITHUB_TOKEN environment variable!"
+        exit 1
+    fi
 
-file_content_type="application/octet-stream"
+    file_content_type="application/octet-stream"
 
-files_to_upload=(
-  "/tmp/cirrus-ci-build/bin/Release/net6.0-android/publish/Juka_${JUKTEMP}.apk"
-)
+    files_to_upload=(
+        "/tmp/cirrus-ci-build/bin/Release/net6.0-android/publish/Juka_${JUKTEMP}.apk"
+    )
 
-for fpath in "${files_to_upload[@]}"
-do
-  echo "Uploading $fpath..."
-  name=$(basename "$fpath")
-  url_to_upload="https://uploads.github.com/repos/$CIRRUS_REPO_FULL_NAME/releases/$CIRRUS_RELEASE/assets?name=$name"
-  curl -X POST \
-    --data-binary @$fpath \
-    --header "Authorization: token $GITHUB_TOKEN" \
-    --header "Content-Type: $file_content_type" \
-    $url_to_upload
-done
+    for fpath in "${files_to_upload[@]}"
+    do
+        echo "Uploading $fpath..."
+        name=$(basename "$fpath")
+        url_to_upload="https://uploads.github.com/repos/$CIRRUS_REPO_FULL_NAME/releases/$CIRRUS_RELEASE/assets?name=$name"
+        curl -X POST \
+        --data-binary @$fpath \
+        --header "Authorization: token $GITHUB_TOKEN" \
+        --header "Content-Type: $file_content_type" \
+        $url_to_upload
+    done
