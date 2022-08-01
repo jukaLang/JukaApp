@@ -14,7 +14,7 @@ public partial class MainPage : ContentPage
 		
 		SemanticScreenReader.Announce(RunJukaBtn.Text);
 
-        outputText.Text = new JukaCompiler.Compiler().Go(codeeditor.Text, isFile: false);
+        outputText.Text = new Compiler().Go(codeeditor.Text, isFile: false);
         
 
         RunJukaBtn.Text = $"Run Juka Code";

@@ -48,7 +48,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="JukaCompiler" Version="0.0.117" />
+	  <PackageReference Include="JukaCompiler" Version="0.0.164" />
 	</ItemGroup>
 
 	<ItemGroup>
