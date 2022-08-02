@@ -48,6 +48,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Fonts\Architex.ttf" />
+	  <None Remove="Resources\Fonts\Shining Hooves Regular.ttf" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="JukaCompiler" Version="0.0.164" />
 	</ItemGroup>
 

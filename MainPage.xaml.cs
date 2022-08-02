@@ -13,11 +13,18 @@ public partial class MainPage : ContentPage
         RunJukaBtn.Text = $"Running Code...";
 		
 		SemanticScreenReader.Announce(RunJukaBtn.Text);
+		String compiler = new Compiler().Go(codeeditor.Text, isFile: false);
+		if(compiler != "Error compiling String reference not set to an instance of a String. (Paramter 's')")
+		{
+            outputText.Text = new Compiler().Go(codeeditor.Text, isFile: false);
+        }
+		else
+		{
+			outputText.Text = "";
+		}
 
-        outputText.Text = new Compiler().Go(codeeditor.Text, isFile: false);
-        
 
-        RunJukaBtn.Text = $"Run Juka Code";
+        RunJukaBtn.Text = $"Execute";
 
     }
 }
