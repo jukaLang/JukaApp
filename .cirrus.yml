@@ -14,7 +14,8 @@ task:
     - Expand-Archive -Path temp.zip -DestinationPath ./
     script:
     - ./dotnet workload restore
-    - ./dotnet publish -f net6.0-android -c Release -o output /p:AndroidSdkDirectory=C:\Android\android-sdk\tools
+    - SET AndroidSdkDirectory=C:\Android\android-sdk
+    - ./dotnet publish -f net6.0-android -c Release -o output /p:AndroidSdkDirectory=C:\Android\android-sdk
     - Get-Location
     package_script:
     - Move-Item -Path C:\Users\ContainerAdministrator\AppData\Local\Temp\cirrus-ci-build\output\com.companyname.jukaapp-Signed.apk -Destination C:\Users\ContainerAdministrator\AppData\Local\Temp\cirrus-ci-build\output\Juka_${env:package_version}.apk
