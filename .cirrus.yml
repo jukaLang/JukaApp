@@ -10,14 +10,12 @@ task:
     setup_script:
     - $env:package_version = (Invoke-WebRequest  -UseBasicParsing -Uri "https://api.github.com/repos/JukaLang/juka/releases/latest" | ConvertFrom-Json).tag_name
     - choco feature enable -n=allowGlobalConfirmation
-    - choco install -y --no-progress flutter
     - choco install -y -f -r --no-progress --acceptlicense android-sdk
     - refreshenv
     - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
     - SET AndroidSdkDirectory=C:\Android\android-sdk
     - cd C:\Android\android-sdk
-    - flutter config --android-sdk C:\Android\android-sdk
-    - flutter doctor --android-licenses --android-sdk C:\Android\android-sdk
+    - cmd.exe /C"%ANDROID_HOME%\tools\bin\sdkmanager.bat --licenses" 
     - Invoke-WebRequest -OutFile temp.zip -Uri https://download.visualstudio.microsoft.com/download/pr/7c4e5883-6139-4093-a1cf-5f0c6fabce89/60a342b67d120328c41fe6c7ff13890b/dotnet-sdk-7.0.100-preview.6.22352.1-win-x64.zip
     - Expand-Archive -Path temp.zip -DestinationPath ./
     script:
