@@ -45,7 +45,6 @@
                          Margin="50,50,50,0"
                          Placeholder="Enter your code here"
                          HeightRequest="250"
-                         WidthRequest="1000"
                          TextColor="#707070"
                          PlaceholderColor="#707070" />
                 
