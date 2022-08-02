@@ -11,8 +11,8 @@ task:
     - $env:package_version = (Invoke-WebRequest  -UseBasicParsing -Uri "https://api.github.com/repos/JukaLang/juka/releases/latest" | ConvertFrom-Json).tag_name
     - choco feature enable -n=allowGlobalConfirmation
     - choco install -y -f -r --no-progress --acceptlicense android-sdk
-    - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
     - refreshenv
+    - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
     - C:\Android\android-sdk\tools\bin\sdkmanager.bat --licenses
     - refreshenv
     - Invoke-WebRequest -OutFile temp.zip -Uri https://download.visualstudio.microsoft.com/download/pr/7c4e5883-6139-4093-a1cf-5f0c6fabce89/60a342b67d120328c41fe6c7ff13890b/dotnet-sdk-7.0.100-preview.6.22352.1-win-x64.zip
