@@ -12,6 +12,8 @@ task:
     - mkdir C:\dotnet\
     - Expand-Archive -Path temp.zip -DestinationPath C:\dotnet\
     - C:\dotnet\dotnet tool install -g AndroidSDK.Tool
+    - refreshenv
+    - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
     - android sdk list
     - android sdk install --package emulator --package "system-images;android-31;google_apis;x86_64"
     script:
