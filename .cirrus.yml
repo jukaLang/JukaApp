@@ -10,6 +10,7 @@ task:
     setup_script:
     - $env:package_version = (Invoke-WebRequest  -UseBasicParsing -Uri "https://api.github.com/repos/JukaLang/juka/releases/latest" | ConvertFrom-Json).tag_name
     - choco feature enable -n=allowGlobalConfirmation
+    - choco install wsl -y
     - choco install -y -f -r --no-progress --acceptlicense android-sdk
     - refreshenv
     - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
