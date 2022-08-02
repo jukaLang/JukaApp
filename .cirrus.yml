@@ -9,7 +9,7 @@ task:
         CIRRUS_SHELL: powershell    
     setup_script:
     - $env:package_version = (Invoke-WebRequest  -UseBasicParsing -Uri "https://api.github.com/repos/JukaLang/juka/releases/latest" | ConvertFrom-Json).tag_name
-    - curl -SL --output cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-win-8512546_latest.zip && "C:\Program Files\7-Zip\7z.exe" e cmdline-tools.zip -o"C:\Program Files (x86)\Android\android-sdk" && cd "C:\Program Files (x86)\Android\android-sdk\tools\bin" && echo y|sdkmanager "platform-tools" "platforms;android-28"
+    - curl -SL --output cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-win-8512546_latest.zip;"C:\Program Files\7-Zip\7z.exe" e cmdline-tools.zip -o"C:\Program Files (x86)\Android\android-sdk";cd "C:\Program Files (x86)\Android\android-sdk\tools\bin"; echo y|sdkmanager "platform-tools" "platforms;android-28"
     - refreshenv
     - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
     - SET AndroidSdkDirectory=C:\Android\android-sdk
