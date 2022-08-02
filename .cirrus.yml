@@ -19,7 +19,7 @@ task:
     - Invoke-WebRequest -OutFile temp.zip -Uri https://download.visualstudio.microsoft.com/download/pr/7c4e5883-6139-4093-a1cf-5f0c6fabce89/60a342b67d120328c41fe6c7ff13890b/dotnet-sdk-7.0.100-preview.6.22352.1-win-x64.zip
     - Expand-Archive -Path temp.zip -DestinationPath ./
     - SET AndroidSdkDirectory=C:\Android\android-sdk
-    - ./dotnet workload restore
+    - ./dotnet workload install maui-android
     script:
     - ./dotnet publish -f net6.0-android -c Release -o output /p:AndroidSdkDirectory=C:\Android\android-sdk
     - Get-Location
