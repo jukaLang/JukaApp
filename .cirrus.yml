@@ -13,7 +13,7 @@ task:
     - Invoke-WebRequest -OutFile cmdline-tools.zip -Uri https://dl.google.com/android/repository/commandlinetools-win-8512546_latest.zip
     - mkdir C:\Android\android-sdk
     - Expand-Archive -Path cmdline-tools.zip -DestinationPath C:\Android\android-sdk 
-    - echo y|C:\Android\android-sdk\tools\bin\sdkmanager.bat "platform-tools" "platforms;android-28"
+    - echo y|C:\Android\android-sdk\cmdline-tools\bin\sdkmanager.bat "platform-tools" "platforms;android-28"
     - SET AndroidSdkDirectory=C:\Android\android-sdk
     - refreshenv
     - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
