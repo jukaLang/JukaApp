@@ -1,5 +1,20 @@
 # Juka App
 
+## Running
+### Windows 10
+Step 1 - Go to "Type to search"
+
+Step 2 - Search for "Windows Features"
+
+Step 3 - Enable Hyper-v
+
+Step 4 - Open the projects **.SLN** file in the latest version of Microsoft Visual Studio Preview 
+
+Step 5 - Install the MAUI workload 
+
+Step 6 - Run the project in the android emulator
+
+
 ## Run Juka Programming Language in a GUI. 
 
 Official Website: https://jukalang.com
