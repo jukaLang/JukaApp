@@ -8,8 +8,9 @@ task:
     env:
         CIRRUS_SHELL: powershell    
     setup_script:
+    - choco install -y jdk8
     - $env:package_version = (Invoke-WebRequest  -UseBasicParsing -Uri "https://api.github.com/repos/JukaLang/juka/releases/latest" | ConvertFrom-Json).tag_name
-    - curl -SL --output cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-win-8512546_latest.zip
+    - Invoke-WebRequest -OutFile cmdline-tools.zip -Uri https://dl.google.com/android/repository/commandlinetools-win-8512546_latest.zip
     - mkdir C:\Android\android-sdk
     - Expand-Archive -Path cmdline-tools.zip -DestinationPath C:\Android\android-sdk 
     - echo y|C:\Android\android-sdk\tools\bin\sdkmanager.bat "platform-tools" "platforms;android-28"
