@@ -12,8 +12,8 @@ task:
     - mkdir /dotnet/
     - tar xf dotnet-sdk-7.0.100-preview.6.22352.1-linux-x64.tar.gz -C /dotnet/
     script:
-    - ./dotnet/dotnet workload restore
-    - ./dotnet/dotnet publish -f net6.0-android -c Release -o output
+    - /dotnet/dotnet workload restore
+    - /dotnet/dotnet publish -f net6.0-android -c Release -o output
     - Get-Location
     package_script:
     - Move-Item -Path C:\Users\ContainerAdministrator\AppData\Local\Temp\cirrus-ci-build\output\com.companyname.jukaapp-Signed.apk -Destination C:\Users\ContainerAdministrator\AppData\Local\Temp\cirrus-ci-build\output\Juka_${env:package_version}.apk
