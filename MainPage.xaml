@@ -1,83 +1,83 @@
 <?xml version="1.0" encoding="utf-8" ?>
-    
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BackgroundColor="White"
              x:Class="JukaApp.MainPage"
 >
     <Grid>
-        
+
         <ScrollView>
-        <VerticalStackLayout 
-            Spacing="25" 
-            Padding="30,0"
+            <VerticalStackLayout 
+            Spacing="-20" 
+            Padding="0,0"
             
             VerticalOptions="Start">
 
-            <Label
+                <Label
                 
-                Padding="12 0 2 0"
-                FontFamily="SHR"
-                TextColor="#454545"
-                Text="Interactive Juka Command Shell"
+                Padding="10,0,0,0"
+                FontFamily="Poppins"
+                TextColor="#707070"
+                Text="Juka Language"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="25"
                 VerticalTextAlignment="Center"
-                HorizontalOptions="Center">
-                
-                <Label.Shadow>
-                    <Shadow
-                    Radius="1"
-                    Opacity="1"
-                    Brush="#9c9c9c"
-                    Offset="-3, 3"
-                     />
-                </Label.Shadow>
-            </Label>
-            <StackLayout>
-                <StackLayout.Shadow>
-                    <Shadow
-                        Radius="1"
-                        Opacity=".5"
-                        Brush="#000"
-                        Offset="-2, 2" />
-                </StackLayout.Shadow>
-                    <Editor x:Name="codeeditor"
-               FontAttributes="Bold"
-                Placeholder="Enter your code here"
-                HeightRequest="250"
-                TextColor="#dbdbdb"
-                PlaceholderColor="#dbdbdb" />
+                HorizontalOptions="Start">
+                </Label>
+                <Label
+                Margin="25,0,0,0"
+                Padding="0,10,0,0"
+                FontFamily="Poppins"
+                TextColor="#707070"
+                Text="Interactive Command Shell"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="11"
+                VerticalTextAlignment="Center"
+                HorizontalOptions="Start">
+                </Label>
 
-                </StackLayout>
-            <Button 
+
+                <Editor 
+                               
+                         x:Name="codeeditor"
+                         FontFamily="CONSOLA"
+                         Margin="50,50,50,0"
+                         Placeholder="Enter your code here"
+                         HeightRequest="250"
+                         WidthRequest="1000"
+                         TextColor="#707070"
+                         PlaceholderColor="#707070" />
+                
+                
+                <Button
+                BackgroundColor="#646464"
                 x:Name="RunJukaBtn"
-                Text="Execute"
+                Text="Run Juko"
                 SemanticProperties.Hint="Execute"
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Center"
-                CornerRadius="5">
-                <Button.Shadow>
-                    <Shadow
-                    Radius="10"
-                    Opacity="1"
-                    Brush="#00e0bb"
-                    Offset="-10, 10"
-                     />
-                </Button.Shadow>
-            </Button>
-     
-                <Label x:Name="outputText"
-                FontSize="16"
-                HorizontalOptions="Center" 
-                  VerticalTextAlignment="End"/>
+                CornerRadius="7"
+                Padding="20,4"
+                FontFamily="Poppins">
+                </Button>
+                
+                    <Label x:Name="outputText"
+                         FontSize="16"
+                         HorizontalOptions="Center" 
+                         VerticalTextAlignment="End"/>
+                    
                 <Label
-            x:Name="footerText"
-            FontSize="Small"
-            HorizontalOptions="Center"
-            Text="This is actively mainted by Juka"
-            Opacity=".5"/>
+                    Margin="0,0,0,100"
+                    x:Name="footerText"
+                    FontSize="Small"
+                    Text="This is actively mainted by Juka"
+                    Opacity=".5"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    />
+              
             </VerticalStackLayout>
-    </ScrollView>
+        </ScrollView>
     </Grid>
 </ContentPage>

@@ -24,7 +24,7 @@ public partial class MainPage : ContentPage
 		}
 
 
-        RunJukaBtn.Text = $"Execute";
+        RunJukaBtn.Text = $"Run Juko";
 
     }
 }
