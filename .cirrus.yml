@@ -11,6 +11,7 @@ task:
     - $env:package_version = (Invoke-WebRequest  -UseBasicParsing -Uri "https://api.github.com/repos/JukaLang/juka/releases/latest" | ConvertFrom-Json).tag_name
     - choco feature enable -n=allowGlobalConfirmation
     - choco install -y -f -r --no-progress --acceptlicense android-sdk
+    - Update-SessionEnvironment
     - refreshenv
     - C:\Android\android-sdk\tools\bin\sdkmanager.bat --licenses
     - refreshenv
