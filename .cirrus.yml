@@ -9,10 +9,13 @@ task:
         CIRRUS_SHELL: powershell    
     setup_script:
     - $env:package_version = (Invoke-WebRequest  -UseBasicParsing -Uri "https://api.github.com/repos/JukaLang/juka/releases/latest" | ConvertFrom-Json).tag_name
-    - curl -SL --output cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-win-8512546_latest.zip;"C:\Program Files\7-Zip\7z.exe" e cmdline-tools.zip -o"C:\Program Files (x86)\Android\android-sdk";cd "C:\Program Files (x86)\Android\android-sdk\tools\bin"; echo y|sdkmanager "platform-tools" "platforms;android-28"
+    - curl -SL --output cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-win-8512546_latest.zip
+    - mkdir C:\Android\android-sdk
+    - Expand-Archive -Path cmdline-tools.zip -DestinationPath C:\Android\android-sdk 
+    - echo y|C:\Android\android-sdk\tools\bin\sdkmanager.bat "platform-tools" "platforms;android-28"
+    - SET AndroidSdkDirectory=C:\Android\android-sdk
     - refreshenv
     - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
-    - SET AndroidSdkDirectory=C:\Android\android-sdk
     - mkdir "C:\Android\android-sdk\licenses"
     - cmd.exe /C "echo |set /p="8933bad161af4178b1185d1a37fbf41ea5269c55" > "C:\Android\android-sdk\licenses\android-sdk-license""
     - Invoke-WebRequest -OutFile temp.zip -Uri https://download.visualstudio.microsoft.com/download/pr/7c4e5883-6139-4093-a1cf-5f0c6fabce89/60a342b67d120328c41fe6c7ff13890b/dotnet-sdk-7.0.100-preview.6.22352.1-win-x64.zip
