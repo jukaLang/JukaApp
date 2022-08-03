@@ -8,23 +8,18 @@ task:
     env:
         CIRRUS_SHELL: powershell    
     setup_script:
-    - choco install --no-progress -y openjdk-11-jdk-headless dotnet-sdk --pre 
+    - choco install --no-progress dotnet-sdk --pre 
     - refreshenv
     - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
     script:
     - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
-    - dotnet workload install android
     - dotnet workload restore
     compile_script:
     - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
-    - mkdir C:\android
-    - SET AndroidSdkDirectory=C:\android
     - dotnet restore 
-    - dotnet msbuild JukaApp.csproj -target:Publish /p:TargetFramework=net6.0-android /p:Configuration=Release /t:InstallAndroidDependencies /p:AndroidSdkDirectory=C:\android /p:AcceptAndroidSDKLicenses=true /p:AndroidBuildApplicationPackage=True
-    - Get-Location
-    package_script:
+    - dotnet publish -f net6.0-windows10.0.19041.0 -c Release
     - $env:package_version = (Invoke-WebRequest  -UseBasicParsing -Uri "https://api.github.com/repos/JukaLang/juka/releases/latest" | ConvertFrom-Json).tag_name
-    - Move-Item -Path C:\Users\ContainerAdministrator\AppData\Local\Temp\cirrus-ci-build\output\com.companyname.jukaapp-Signed.apk -Destination C:\Users\ContainerAdministrator\AppData\Local\Temp\cirrus-ci-build\output\Juka_${env:package_version}.apk
+    - Move-Item -Path C:\Users\ContainerAdministrator\AppData\Local\Temp\cirrus-ci-build\bin\Release\net6.0-windows10.0.19041.0\win10-x64\AppPackages\JukaApp_1.0.0.1_Test -Destination C:\Users\ContainerAdministrator\AppData\Local\Temp\cirrus-ci-build\output\
     upload_script: |
         #!/usr/bin/env bash
 
@@ -41,7 +36,7 @@ task:
         file_content_type="application/octet-stream"
 
         files_to_upload=(
-            "/tmp/cirrus-ci-build/bin/Release/net6.0-android/publish/Juka_${env:package_version}.apk"
+            "C:\Users\ContainerAdministrator\AppData\Local\Temp\cirrus-ci-build\output\JukaApp_1.0.0.1_x64.msix"
         )
 
         for fpath in "${files_to_upload[@]}"
