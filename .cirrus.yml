@@ -8,17 +8,17 @@ task:
     env:
         CIRRUS_SHELL: powershell    
     setup_script:
-    - Invoke-WebRequest -OutFile temp.zip -Uri https://download.visualstudio.microsoft.com/download/pr/7c4e5883-6139-4093-a1cf-5f0c6fabce89/60a342b67d120328c41fe6c7ff13890b/dotnet-sdk-7.0.100-preview.6.22352.1-win-x64.zip
-    - mkdir C:\dotnet\
-    - Expand-Archive -Path temp.zip -DestinationPath C:\dotnet\
-    - C:\dotnet\dotnet tool install -g AndroidSDK.Tool
+    - choco install -y dotnet-sdk --pre 
+    - refreshenv
+    - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
+    - dotnet tool install -g AndroidSDK.Tool
     - refreshenv
     - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
     - android sdk list
     - android sdk install --package emulator --package "system-images;android-31;google_apis;x86_64"
     script:
-    - C:\dotnet\dotnet workload restore
-    - C:\dotnet\dotnet publish -f net6.0-android -c Release -o output
+    - dotnet workload restore
+    - dotnet publish -f net6.0-android -c Release -o output
     - Get-Location
     package_script:
     - $env:package_version = (Invoke-WebRequest  -UseBasicParsing -Uri "https://api.github.com/repos/JukaLang/juka/releases/latest" | ConvertFrom-Json).tag_name
