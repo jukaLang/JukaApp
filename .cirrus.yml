@@ -8,16 +8,14 @@ task:
     env:
         CIRRUS_SHELL: powershell    
     setup_script:
-    - choco install --no-progress -y dotnet-5.0-aspnetruntime
     - choco install --no-progress -y dotnet-sdk --pre 
     - refreshenv
     - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
-    - dotnet tool install -g AndroidSDK.Tool
+    - dotnet workload install android 
     - refreshenv
     - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
-    - android sdk list
-    - android sdk install --package emulator --package "system-images;android-31;google_apis;x86_64"
     script:
+    - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
     - dotnet workload restore
     - dotnet publish -f net6.0-android -c Release -o output
     - Get-Location
