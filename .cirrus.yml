@@ -8,8 +8,12 @@ task:
     env:
         CIRRUS_SHELL: powershell    
     setup_script:
-    - choco install --no-progress -y dotnet-sdk --pre 
+    - choco install --no-progress -y android dotnet-sdk --pre 
     - refreshenv
+    - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
+    - dotnet workload install android 
+    - refreshenv
+    - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
     script:
     - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
     - dotnet workload restore
