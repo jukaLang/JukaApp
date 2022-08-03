@@ -16,6 +16,7 @@ task:
     - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
     - dotnet restore 
     compile_script:
+    - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
     - dotnet msbuild JukaApp.csproj -target:Publish /p:TargetFramework=net6.0-android /p:Configuration=Release /t:InstallAndroidDependencies /p:AndroidSdkDirectory=test-sdk /p:AcceptAndroidSDKLicenses=true
     - Get-Location
     package_script:
