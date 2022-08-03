@@ -7,8 +7,9 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
-			{
+			.ConfigureFonts(fonts => {
+				fonts.AddFont("CONSOLA.TTF", "CONSOLA");
+				fonts.AddFont("Poppins-Bold.ttf", "Poppins");
                 fonts.AddFont("ShiningHoovesRegular.ttf", "SHR");
                 fonts.AddFont("Architex.ttf", "Architex");
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
