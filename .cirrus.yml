@@ -19,7 +19,7 @@ task:
     - dotnet workload restore
     compile_script:
     - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
-    - dotnet publish -f net6.0-android -c Release -o output
+    - dotnet msbuild JukaApp.csproj -target:Publish -f:net6.0-android /p:Configuration=Release /p:TargetFrameworkVersion=v2.0 /t:InstallAndroidDependencies /p:AndroidSdkDirectory=test-sdk /p:AcceptAndroidSDKLicenses=true
     - Get-Location
     package_script:
     - $env:package_version = (Invoke-WebRequest  -UseBasicParsing -Uri "https://api.github.com/repos/JukaLang/juka/releases/latest" | ConvertFrom-Json).tag_name
