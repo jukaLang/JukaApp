@@ -9,9 +9,9 @@
 
         <ScrollView>
             <VerticalStackLayout 
+             
             Spacing="-20" 
             Padding="0,0"
-            
             VerticalOptions="Start">
 
                 <Label
@@ -42,17 +42,10 @@
                 <Frame
                     CornerRadius="13"
                     Margin="10,60,10,50">
-                    <Frame.Shadow>
-
-                        <Shadow Brush="BLACK"
-                                Offset="5,5"
-                                Radius="20"
-                                Opacity="1"/>
-                    </Frame.Shadow>
                     <Editor
                         x:Name="codeeditor"
-                        FontFamily="OpenSansRegular"
                         HeightRequest="250"
+                        WidthRequest="350"
                         IsSpellCheckEnabled="False"
                         />
                 </Frame>
@@ -72,17 +65,21 @@
                 </Button>
 
                 
-                    <Label x:Name="outputText"
-                           ZIndex="2"
-                           Margin="44"
+                    <Label 
+                         x:Name="outputText"
+                         TextType="Text"
+                         ZIndex="2"
+                         Margin="44"
                          FontSize="16"
                          HorizontalOptions="Center" 
-                         VerticalTextAlignment="End"/>
+                         VerticalTextAlignment="End"
+                         Padding="20,5,50,0"/>
                 <Label
+                    
                     Margin="0,0,0,200"
                     x:Name="footerText"
                     FontSize="Small"
-                    Text="This project is actively mainted by Juka"
+                    Text="This project is actively maintained by Juka"
                     Opacity=".5"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
