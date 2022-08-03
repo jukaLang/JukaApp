@@ -17,6 +17,7 @@ task:
     script:
     - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
     - dotnet workload restore
+    compile_script:
     - dotnet publish -f net6.0-android -c Release -o output
     - Get-Location
     package_script:
