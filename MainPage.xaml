@@ -25,6 +25,7 @@
                 VerticalTextAlignment="Center"
                 HorizontalOptions="Start">
                 </Label>
+                
                 <Label
                 Margin="25,0,0,0"
                 Padding="0,10,0,0"
@@ -34,49 +35,61 @@
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="11"
                 VerticalTextAlignment="Center"
-                HorizontalOptions="Start">
-                </Label>
+                HorizontalOptions="Start"
+                />
 
 
-                <Editor 
-                               
-                         x:Name="codeeditor"
-                         FontFamily="CONSOLA"
-                         Margin="50,50,50,0"
-                         Placeholder="Enter your code here"
-                         HeightRequest="250"
-                         TextColor="#707070"
-                         PlaceholderColor="#707070" />
-                
-                
+                <Frame
+                    CornerRadius="13"
+                    Margin="10,60,10,50">
+                    <Frame.Shadow>
+
+                        <Shadow Brush="BLACK"
+                                Offset="5,5"
+                                Radius="20"
+                                Opacity="1"/>
+                    </Frame.Shadow>
+                    <Editor
+                        x:Name="codeeditor"
+                        FontFamily="OpenSansRegular"
+                        HeightRequest="250"
+                        IsSpellCheckEnabled="False"
+                        />
+                </Frame>
+
+
+
                 <Button
-                BackgroundColor="#646464"
-                x:Name="RunJukaBtn"
-                Text="Run Juko"
-                SemanticProperties.Hint="Execute"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center"
-                CornerRadius="7"
-                Padding="20,4"
-                FontFamily="Poppins">
+                    BackgroundColor="#646464"
+                    x:Name="RunJukaBtn"
+                    Text="Run Juko"
+                    SemanticProperties.Hint="Execute"
+                    Clicked="OnCounterClicked"
+                    HorizontalOptions="Center"
+                    CornerRadius="7"
+                    Padding="20,4"
+                    FontFamily="Poppins">
                 </Button>
+
                 
                     <Label x:Name="outputText"
+                           ZIndex="2"
+                           Margin="44"
                          FontSize="16"
                          HorizontalOptions="Center" 
                          VerticalTextAlignment="End"/>
-                    
                 <Label
-                    Margin="0,0,0,100"
+                    Margin="0,0,0,200"
                     x:Name="footerText"
                     FontSize="Small"
-                    Text="This is actively mainted by Juka"
+                    Text="This project is actively mainted by Juka"
                     Opacity=".5"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
                     />
-              
-            </VerticalStackLayout>
+
+
+                </VerticalStackLayout>
         </ScrollView>
     </Grid>
 </ContentPage>
