@@ -8,7 +8,7 @@ task:
     env:
         CIRRUS_SHELL: powershell    
     setup_script:
-    - choco install --no-progress -y android dotnet-sdk --pre 
+    - choco install --no-progress -y androidstudio dotnet-sdk --pre 
     - refreshenv
     - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
     - dotnet workload install android 
@@ -22,7 +22,7 @@ task:
     compile_script:
     - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
     - SET AndroidSdkDirectory=C:\android-sdk
-    - dotnet msbuild JukaApp.csproj -target:Publish /p:TargetFramework=net6.0-android /p:Configuration=Release /t:InstallAndroidDependencies /p:AndroidSdkDirectory=C:\android-sdk /p:AcceptAndroidSDKLicenses=true
+    - dotnet msbuild JukaApp.csproj -target:Publish /p:TargetFramework=net6.0-android /p:Configuration=Release /t:InstallAndroidDependencies /p:AndroidSdkDirectory=C:\android-sdk /p:AcceptAndroidSDKLicenses=true /p:AndroidBuildApplicationPackage=True
     - Get-Location
     package_script:
     - $env:package_version = (Invoke-WebRequest  -UseBasicParsing -Uri "https://api.github.com/repos/JukaLang/juka/releases/latest" | ConvertFrom-Json).tag_name
