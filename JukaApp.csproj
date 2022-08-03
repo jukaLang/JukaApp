@@ -62,6 +62,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Discord.Webhooks" Version="1.0.0" />
 	  <PackageReference Include="JukaCompiler" Version="0.0.164" />
 	</ItemGroup>
 
