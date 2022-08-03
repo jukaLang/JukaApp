@@ -11,17 +11,13 @@ task:
     - choco install --no-progress -y androidstudio dotnet-sdk --pre 
     - refreshenv
     - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
-    - dotnet workload install android 
-    - refreshenv
-    - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
     script:
     - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
     - dotnet workload restore
-    - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
-    - dotnet restore 
     compile_script:
     - $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") 
     - SET AndroidSdkDirectory=C:\android-sdk
+    - dotnet restore 
     - dotnet msbuild JukaApp.csproj -target:Publish /p:TargetFramework=net6.0-android /p:Configuration=Release /t:InstallAndroidDependencies /p:AndroidSdkDirectory=C:\android-sdk /p:AcceptAndroidSDKLicenses=true /p:AndroidBuildApplicationPackage=True
     - Get-Location
     package_script:
