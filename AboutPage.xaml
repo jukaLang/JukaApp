@@ -2,25 +2,27 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             BackgroundColor="White"
+             BackgroundColor="Red"
              x:Class="JukaApp.AboutPage"
 >
     <Grid>
 
         <ScrollView>
             <VerticalStackLayout 
-             
-            Spacing="-20" 
+
             Padding="0,0"
             VerticalOptions="Start">
 
+                <Image Aspect="Fill" Source="appicon.svg">
+                </Image>
+
+
                 <Label
-                    
-                    Margin="0,0,0,200"
+
                     x:Name="footerText"
                     FontSize="Small"
-                    Text="This project is actively maintained by Juka Team. Visit us at https://jukalang.com for more information"
-                    Opacity=".5"
+                    Text="Visit us at https://jukalang.com for more information"
+                    Opacity="1.0"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
                     />

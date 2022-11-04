@@ -10,13 +10,19 @@ public partial class MainPage : ContentPage
 
     private void OnCounterClicked(object sender, EventArgs e)
     {
-        RunJukaBtn.Text = "Running Code...";
+        Run_Btn.Text = "Running...";
 
-        SemanticScreenReader.Announce(RunJukaBtn.Text);
-        String data = new Compiler().Go(codeeditor.Text, isFile: false);
+        SemanticScreenReader.Announce(Run_Btn.Text);
+        string data = new Compiler().Go(codeeditor.Text, isFile: false);
         outputText.Text = data;
-        RunJukaBtn.Text = "Run Juka";
+        Run_Btn.Text = "Run Code";
 
     }
 
+    private void OnEditorTextChanged(object sender, TextChangedEventArgs e)
+    {
+        //string oldText = e.OldTextValue ?? "";
+        //string newText = e.NewTextValue ?? "";
+
+    }
 }

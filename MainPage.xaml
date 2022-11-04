@@ -2,86 +2,114 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             BackgroundColor="White"
              x:Class="JukaApp.MainPage"
 >
+    <ContentPage.Resources>
+        <StyleSheet>
+            <![CDATA[
+            ^contentpage {
+                background-color: white;
+            }
+            button {
+                font-weight: bold;
+                display: inline-block;
+                border: none;
+                text-align: center;
+                text-decoration: none;
+                color:rgb(51,52,71);
+                background-color: rgb(0,224,188);
+                box-shadow: -20px 20px 0 -5px white,-10px 10px 0 0 rgb(0,224,188);
+                outline:0;
+                border-bottom: 0;
+                    
+            }
+            label {
+                color: white;
+                background-color: #333447;
+            }
+            ]]>
+        </StyleSheet>
+    </ContentPage.Resources>
     <Grid>
 
         <ScrollView>
             <VerticalStackLayout 
              
-            Spacing="-20" 
+            Spacing="5" 
             Padding="0,0"
             VerticalOptions="Start">
 
                 <Label
                     Padding="10,0,0,0"
-                TextColor="#333447"
-                Text="Juka Language"
+                    Text="Juka Programming Language"
                 SemanticProperties.HeadingLevel="Level1"
                 FontSize="25"
                 VerticalTextAlignment="Center"
                 HorizontalOptions="Start">
                 </Label>
 
-                
-
-
-                <Frame
-                    CornerRadius="13"
-                    Margin="10,60,10,50">
-                    <Editor
-                        x:Name="codeeditor"
-                        HeightRequest="250"
-                        WidthRequest="350"
-                        IsSpellCheckEnabled="False"
-                        AutoSize="TextChanges"
-                        IsTextPredictionEnabled="False"
-                        Placeholder="Enter Code Here..." 
-                        TextColor="#333447"
-                        >
-                        <Editor.Text>
-                            func main() = { 
-   printLine("Hello World");
+            <Editor
+                x:Name="codeeditor"
+                TextTransform="None"
+                HorizontalOptions="Center"
+                FontAutoScalingEnabled="True"
+                HeightRequest="300"
+                WidthRequest="550"
+                AutoSize="TextChanges"
+                IsSpellCheckEnabled="False"
+                IsTextPredictionEnabled="False"
+                Placeholder="Enter Code Here..." 
+                PlaceholderColor="#BBB"
+                TextColor="#333447"
+                Keyboard="Plain"
+                TextChanged="OnEditorTextChanged"
+            >
+                <Editor.Text>
+                    func main() = { 
+        printLine("Hello World");
 }
-                        </Editor.Text>
-                    </Editor>
-                </Frame>
-
+                </Editor.Text>
+            </Editor>
 
 
                 <Button
-                    BackgroundColor="#646464"
-                    x:Name="RunJukaBtn"
-                    Text="Run Juka"
-                    SemanticProperties.Hint="Execute"
-                    Clicked="OnCounterClicked"
-                    HorizontalOptions="Center"
-                    CornerRadius="7"
-                    
-                    >
-                </Button>
+                        x:Name="Run_Btn"
+                        Text="Run Code"
+                        SemanticProperties.Hint="Execute"
+                        Clicked="OnCounterClicked"
+                        HorizontalOptions="Center"
+                        CornerRadius="5">
+                        <Button.Shadow>
+                            <Shadow
+                                Radius="10"
+                                Opacity="1.0"
+                                Brush="#00e0bb"
+                                Offset="-10, 10"
+                            />
+                        </Button.Shadow>
+                    </Button>
 
                 <Label 
-                         x:Name="outputText"
-                         TextType="Text"
-                         Margin="44"
-                         FontSize="16"
-                         HorizontalOptions="Center" 
-                         VerticalTextAlignment="End"
-                         TextColor="#000000"
-                         />
+                    BackgroundColor = "#FFF"
+                    TextColor ="#333447"
+                    x:Name="Output"
+                    TextType="Text"
+                    Margin="24"
+                    FontSize="16"
+                    Text ="Output:"
+                    HorizontalOptions="Center" 
+                    VerticalTextAlignment="End"
+                />
 
-                <Label
-                    
-                    Margin="0,0,0,200"
-                    x:Name="footerText"
-                    FontSize="Small"
-                    Text="This project is actively maintained by Juka Team"
-                    Opacity=".5"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    />
+                <Label 
+                    BackgroundColor = "#FFF"
+                    TextColor ="#333447"
+                     x:Name="outputText"
+                     TextType="Text"
+                    FontSize="16"
+                     HorizontalOptions="Center" 
+                     VerticalTextAlignment="End"
+            />
 
 
             </VerticalStackLayout>
