@@ -1,0 +1,62 @@
+image: Visual Studio 2022
+
+branches:
+  # whitelist
+  only:
+    - master
+
+skip_tags: false
+skip_non_tags: false
+
+version: '0.0.{build}'
+
+install:
+ - ps: $env:package_version = (Invoke-WebRequest -URI "https://api.github.com/repos/JukaLang/juka/releases/latest" | ConvertFrom-Json).tag_name
+ - ps: Update-AppveyorBuild -Version "$env:package_version"
+
+dotnet_csproj:
+  patch: true
+  file: '*.csproj'
+  version: '{version}'
+  package_version: $(APPVEYOR_BUILD_VERSION)
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+
+environment:
+  token:
+    secure: YPPyzDbCboQKYOfAl/4XahyYfDiWOsyjoL2WjyNOxH4=
+
+
+before_build: 
+ - ps: dotnet workload restore JukaApp.sln
+ - ps: dotnet add package JukaCompiler
+
+build_script:
+- ps: certutil -user -p jukatest -importPFX Juka.pfx NoRoot
+- ps: $mypwd = ConvertTo-SecureString -String "jukatest" -Force -AsPlainText
+- ps: $Thumbprint = (Get-PfxData -Password $mypwd -FilePath "./Juka.pfx").EndEntityCertificates.Thumbprint
+- ps: dotnet publish JukaApp.sln -f net6.0-windows10.0.19041.0 -c Debug /p:PackageCertificateThumbprint="$Thumbprint" /p:AppxPackageSigningEnabled=true
+- ps: dotnet publish JukaApp.sln -f net6.0-android -c Release /p:AndroidKeyStore=True /p:AndroidSigningKeyStore=myapp.keystore /p:AndroidSigningKeyAlias=key /p:AndroidSigningKeyPass=jukarocks /p:AndroidSigningStorePass=jukarocks 
+- ps: Rename-Item -Path "bin\Debug\net6.0-windows10.0.19041.0\win10-x64\AppPackages\JukaApp_1.0.0.1_Debug_Test\JukaApp_1.0.0.1_x64_Debug.msix" -NewName "Juka_Windows_App_$env:package_version.msix"
+- ps: Rename-Item -Path "bin\Release\net6.0-android\publish\com.jukalang.jukaapp-Signed.apk" -NewName "Juka_Android_App_$env:package_version.apk"
+
+artifacts:
+- path: 'bin\Debug\net6.0-windows10.0.19041.0\win10-x64\AppPackages\JukaApp_1.0.0.1_Debug_Test\Juka_Windows_App_$(APPVEYOR_BUILD_VERSION).msix'
+  name: Juka_Windows_App_$(APPVEYOR_BUILD_VERSION).msix
+
+- path: 'bin\Release\net6.0-android\publish\Juka_Android_App_$(APPVEYOR_BUILD_VERSION).apk'
+  name: Juka_Android_App_$(APPVEYOR_BUILD_VERSION).apk
+
+
+deploy:
+    # Deploy to GitHub Releases
+  - provider: GitHub
+    artifact: /.*/
+    auth_token:
+      secure: XCqLJKrsMnRCCEEcsPL53Emba/2GrP172INtXx86eu5XBbed614ug/2dcx8MZwmr
+    draft: false
+    prerelease: false
+    on:
+      branch: master                # release from master branch only
+      APPVEYOR_REPO_TAG: false       # deploy on tag push only

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:local="clr-namespace:JukaApp;assembly=JukaApp"
+            xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            x:Class="JukaApp.AppTabbedPage">
+
+    <NavigationPage Title="Compiler" IconImageSource="{StaticResource TabOne}">
+        <x:Arguments>
+            <local:MainPage Title="Compiler" />
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage Title="Files" IconImageSource="{StaticResource TabTwo}">
+        <x:Arguments>
+            <local:FilePage Title="Files" />
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage Title="Docs" IconImageSource="{StaticResource TabThree}">
+        <x:Arguments>
+            <local:DocsPage Title="Documentation" />
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage Title="About" IconImageSource="{StaticResource TabFour}">
+        <x:Arguments>
+            <local:AboutPage Title="About" />
+        </x:Arguments>
+    </NavigationPage>
+
+</TabbedPage>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BackgroundColor="White"
+             x:Class="JukaApp.MainPage"
+>
+    <Grid>
+
+        <ScrollView>
+            <VerticalStackLayout 
+             
+            Spacing="-20" 
+            Padding="0,0"
+            VerticalOptions="Start">
+
+                <Label
+                    Padding="10,0,0,0"
+                TextColor="#333447"
+                Text="Juka Language"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="25"
+                VerticalTextAlignment="Center"
+                HorizontalOptions="Start">
+                </Label>
+
+                
+
+
+                <Frame
+                    CornerRadius="13"
+                    Margin="10,60,10,50">
+                    <Editor
+                        x:Name="codeeditor"
+                        HeightRequest="250"
+                        WidthRequest="350"
+                        IsSpellCheckEnabled="False"
+                        AutoSize="TextChanges"
+                        IsTextPredictionEnabled="False"
+                        Placeholder="Enter Code Here..." 
+                        TextColor="#333447"
+                        >
+                        <Editor.Text>
+                            func main() = { 
+   printLine("Hello World");
+}
+                        </Editor.Text>
+                    </Editor>
+                </Frame>
+
+
+
+                <Button
+                    BackgroundColor="#646464"
+                    x:Name="RunJukaBtn"
+                    Text="Run Juka"
+                    SemanticProperties.Hint="Execute"
+                    Clicked="OnCounterClicked"
+                    HorizontalOptions="Center"
+                    CornerRadius="7"
+                    
+                    >
+                </Button>
+
+                <Label 
+                         x:Name="outputText"
+                         TextType="Text"
+                         Margin="44"
+                         FontSize="16"
+                         HorizontalOptions="Center" 
+                         VerticalTextAlignment="End"
+                         TextColor="#000000"
+                         />
+
+                <Label
+                    
+                    Margin="0,0,0,200"
+                    x:Name="footerText"
+                    FontSize="Small"
+                    Text="This project is actively maintained by Juka Team"
+                    Opacity=".5"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    />
+
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
