@@ -6,9 +6,9 @@
             android:TabbedPage.ToolbarPlacement="Bottom"
             x:Class="JukaApp.AppTabbedPage">
 
-    <NavigationPage Title="Compiler" IconImageSource="{StaticResource TabOne}">
+    <NavigationPage Title="Code" IconImageSource="{StaticResource TabOne}">
         <x:Arguments>
-            <local:MainPage Title="Compiler" />
+            <local:MainPage Title="Code" />
         </x:Arguments>
     </NavigationPage>
     <NavigationPage Title="Files" IconImageSource="{StaticResource TabTwo}">

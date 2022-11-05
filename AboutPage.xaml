@@ -2,7 +2,7 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             BackgroundColor="Red"
+             BackgroundColor="White"
              x:Class="JukaApp.AboutPage"
 >
     <Grid>
@@ -13,8 +13,7 @@
             Padding="0,0"
             VerticalOptions="Start">
 
-                <Image Aspect="Fill" Source="appicon.svg">
-                </Image>
+                
 
 
                 <Label

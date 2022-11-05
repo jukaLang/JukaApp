@@ -29,6 +29,8 @@ environment:
 
 
 before_build: 
+ - ps: dotnet workload install maui
+ - ps: dotnet workload install maui-android
  - ps: dotnet workload restore JukaApp.sln
  - ps: dotnet add package JukaCompiler
 
