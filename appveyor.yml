@@ -31,7 +31,7 @@ environment:
 
 before_build: 
  - ps: |
-        $env:MY_XT="
+        $env:MY_XT=""
         if ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED)
         {
         $env:MY_XT="\n $($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED)"
