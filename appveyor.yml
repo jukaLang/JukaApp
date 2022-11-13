@@ -25,10 +25,9 @@ dotnet_csproj:
   informational_version: '{version}'
 
 environment:
-    matrix:
-      - ANDROID_HOME: "C:\\android-sdk-windows"
-      - token:
-          secure: YPPyzDbCboQKYOfAl/4XahyYfDiWOsyjoL2WjyNOxH4=
+ - ANDROID_HOME: "C:\\android-sdk-windows"
+ - token:
+       secure: YPPyzDbCboQKYOfAl/4XahyYfDiWOsyjoL2WjyNOxH4=
 
 
 before_build: 
