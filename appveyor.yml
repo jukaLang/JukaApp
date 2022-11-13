@@ -72,7 +72,7 @@ deploy:
   - provider: GitHub
     artifact: /.*/
     tag: "$(MY_AV)"
-    release: "JukaWASM v$(MY_AV)"
+    release: "📦 JukaApp v$(MY_AV)"
     description: "## 🍂 Changelog \n $(MY_XT)"
     auth_token:
       secure: XCqLJKrsMnRCCEEcsPL53Emba/2GrP172INtXx86eu5XBbed614ug/2dcx8MZwmr
