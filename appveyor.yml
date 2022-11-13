@@ -31,9 +31,9 @@ environment:
 
 before_build: 
  - ps: |
-        if ($(env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED))
+        if ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED)
         {
-        $env:MY_XT="\n $(env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED)"
+        $env:MY_XT="\n $($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED)"
         } else{
         $env:MY_XT=""
         }
@@ -68,7 +68,7 @@ deploy:
     artifact: /.*/
     tag: '$(APPVEYOR_BUILD_VERSION)'
     release: 'JukaApp v$(APPVEYOR_BUILD_VERSION)'
-    description: '## 🍂 Changelog \n $(APPVEYOR_REPO_COMMIT_MESSAGE) $(env:MY_XT) '
+    description: '## 🍂 Changelog \n $(APPVEYOR_REPO_COMMIT_MESSAGE) ' + $env:MY_XT
     auth_token:
       secure: XCqLJKrsMnRCCEEcsPL53Emba/2GrP172INtXx86eu5XBbed614ug/2dcx8MZwmr
     draft: false
