@@ -12,6 +12,7 @@ version: '0.0.{build}'
 
 install:
  - ps: $env:package_version = (Invoke-WebRequest -URI "https://api.github.com/repos/JukaLang/juka/releases/latest" | ConvertFrom-Json).tag_name
+ - ps: Update-AppveyorBuild -Version "$env:package_version - $(APPVEYOR_BUILD_VERSION)"
  - ps: Update-AppveyorBuild -Version "$env:package_version"
 
 dotnet_csproj:
@@ -29,6 +30,13 @@ environment:
 
 
 before_build: 
+ - ps: |
+        if ($(APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED))
+        {
+        $env:MY_XT="\n $(APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED)"
+        } else{
+        $env:MY_XT=""
+        }
  - ps: dotnet workload install maui
  - ps: dotnet workload install maui-android
  - ps: dotnet workload restore JukaApp.sln
@@ -55,6 +63,9 @@ deploy:
     # Deploy to GitHub Releases
   - provider: GitHub
     artifact: /.*/
+    tag: '$(APPVEYOR_BUILD_VERSION)'
+    release: 'JukaApp v$(APPVEYOR_BUILD_VERSION)'
+    description: '## 🍂 Changelog \n $(APPVEYOR_REPO_COMMIT_MESSAGE) $(env:MY_XT) '
     auth_token:
       secure: XCqLJKrsMnRCCEEcsPL53Emba/2GrP172INtXx86eu5XBbed614ug/2dcx8MZwmr
     draft: false
