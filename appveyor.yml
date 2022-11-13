@@ -27,23 +27,24 @@ dotnet_csproj:
 environment:
  token:
    secure: YPPyzDbCboQKYOfAl/4XahyYfDiWOsyjoL2WjyNOxH4=
- ANDROID_HOME: "C:\\android-sdk-windows"
+ ANDROID_HOME: "C:\\Android\\cmdline-tools"
 
 
 before_build: 
+ - appveyor DownloadFile https://dl.google.com/android/repository/commandlinetools-win-8512546_latest.zip
+ - 7z x commandlinetools-win-8512546_latest.zip -oC:\Android\cmdline-tools > nul
+ - mv C:\Android\cmdline-tools\cmdline-tools C:\Android\cmdline-tools\tools
+ - yes | C:\Android\cmdline-tools\tools\bin\sdkmanager.bat --licenses
+ - ps: dotnet workload install maui
+ - ps: dotnet workload install maui-android
+ - ps: dotnet workload restore JukaApp.sln
+ - ps: dotnet add package JukaCompiler
  - ps: |
         $env:MY_XT=""
         if ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED)
         {
         $env:MY_XT="\n $($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED)"
         }
- - appveyor DownloadFile https://dl.google.com/android/repository/commandlinetools-win-8512546_latest.zip
- - 7z x commandlinetools-win-8512546_latest.zip -oC:\android-sdk-windows > nul
- - yes | C:\android-sdk-windows\cmdline-tools\bin\sdkmanager.bat --licenses
- - ps: dotnet workload install maui
- - ps: dotnet workload install maui-android
- - ps: dotnet workload restore JukaApp.sln
- - ps: dotnet add package JukaCompiler
 
 build_script:
 - ps: certutil -user -p jukatest -importPFX Juka.pfx NoRoot
