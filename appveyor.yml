@@ -27,14 +27,14 @@ dotnet_csproj:
 environment:
  token:
    secure: YPPyzDbCboQKYOfAl/4XahyYfDiWOsyjoL2WjyNOxH4=
- ANDROID_HOME: "C:\\Android\\cmdline-tools"
+ ANDROID_HOME: "C:\\Program Files (x86)\\Android\\android-sdk\\"
 
 
 before_build: 
  - appveyor DownloadFile https://dl.google.com/android/repository/commandlinetools-win-8512546_latest.zip
- - 7z x commandlinetools-win-8512546_latest.zip -oC:\Android\cmdline-tools > nul
- - mv C:\Android\cmdline-tools\cmdline-tools C:\Android\cmdline-tools\tools
- - yes | C:\Android\cmdline-tools\tools\bin\sdkmanager.bat --licenses
+ - 7z x commandlinetools-win-8512546_latest.zip -o"C:\Program Files (x86)\Android\android-sdk\cmdline-tools" > nul
+ - mv "C:\Program Files (x86)\Android\android-sdk\cmdline-tools\cmdline-tools" "C:\Program Files (x86)\Android\android-sdk\cmdline-tools\tools"
+ - yes | "C:\Program Files (x86)\Android\android-sdk\cmdline-tools\tools\bin\sdkmanager.bat" --licenses
  - C:\Android\cmdline-tools\tools\bin\sdkmanager.bat "platform-tools" "platforms;android-31"
  - ps: dotnet workload install maui
  - ps: dotnet workload restore JukaApp.sln
