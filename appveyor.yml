@@ -35,7 +35,7 @@ before_build:
  - 7z x commandlinetools-win-8512546_latest.zip -o"C:\Program Files (x86)\Android\android-sdk\cmdline-tools" > nul
  - mv "C:\Program Files (x86)\Android\android-sdk\cmdline-tools\cmdline-tools" "C:\Program Files (x86)\Android\android-sdk\cmdline-tools\tools"
  - yes | "C:\Program Files (x86)\Android\android-sdk\cmdline-tools\tools\bin\sdkmanager.bat" --licenses
- - "C:\Program Files (x86)\Android\android-sdk\cmdline-tools\tools\bin\sdkmanager.bat" "platform-tools" "platforms;android-31"
+ - "C:\\Program Files (x86)\\Android\\android-sdk\\cmdline-tools\\tools\\bin\\sdkmanager.bat" "platform-tools" "platforms;android-31"
  - ps: dotnet workload install maui
  - ps: dotnet workload restore JukaApp.sln
  - ps: dotnet add package JukaCompiler
