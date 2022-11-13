@@ -27,7 +27,7 @@ dotnet_csproj:
 environment:
  token:
    secure: YPPyzDbCboQKYOfAl/4XahyYfDiWOsyjoL2WjyNOxH4=
- - ANDROID_HOME: "C:\\android-sdk-windows"
+ ANDROID_HOME: "C:\\android-sdk-windows"
 
 
 before_build: 
