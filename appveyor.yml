@@ -8,11 +8,11 @@ branches:
 skip_tags: false
 skip_non_tags: false
 
-version: '0.0.{build}'
+version: '{build}'
 
 install:
  - ps: $env:package_version = (Invoke-WebRequest -URI "https://api.github.com/repos/JukaLang/juka/releases/latest" | ConvertFrom-Json).tag_name
- - ps: $env:changelog = (Invoke-WebRequest -URI "https://api.github.com/repos/JukaLang/juka/releases/latest" | ConvertFrom-Json).body
+ - ps: $env:changelog = (Invoke-WebRequest -URI "https://api.github.com/repos/JukaLang/juka/releases/latest" -UseBasicParsing | ConvertFrom-Json).body.Split([Environment]::NewLine) | Select -Skip 1 | Out-String
  - ps: Update-AppveyorBuild -Version "$env:package_version"
 
 dotnet_csproj:
@@ -74,7 +74,7 @@ deploy:
     artifact: /.*/
     tag: "$(MY_AV)"
     release: "📦 JukaApp v$(MY_AV)"
-    description: "$($env:changelog) \n ## 📱 App Changes \n $(MY_XT)"
+    description: "## 🍂 Juka Changes \n $(changelog) \n ## 📱 App Changes \n $(MY_XT)"
     auth_token:
       secure: XCqLJKrsMnRCCEEcsPL53Emba/2GrP172INtXx86eu5XBbed614ug/2dcx8MZwmr
     draft: false
