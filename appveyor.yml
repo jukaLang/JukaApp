@@ -12,6 +12,7 @@ version: '0.0.{build}'
 
 install:
  - ps: $env:package_version = (Invoke-WebRequest -URI "https://api.github.com/repos/JukaLang/juka/releases/latest" | ConvertFrom-Json).tag_name
+ - ps: $env:changelog = (Invoke-WebRequest -URI "https://api.github.com/repos/JukaLang/juka/releases/latest" | ConvertFrom-Json).body
  - ps: Update-AppveyorBuild -Version "$env:package_version"
 
 dotnet_csproj:
@@ -39,11 +40,11 @@ before_build:
  - ps: dotnet workload restore JukaApp.sln
  - ps: dotnet add package JukaCompiler
  - ps: |
-        $env:MY_XT= $env:APPVEYOR_REPO_COMMIT_MESSAGE
+        $env:MY_XT= "$($env:changelog) \n ## 📱 App Changes \n $($env:APPVEYOR_REPO_COMMIT_MESSAGE)"
         $env:MY_AV= $env:APPVEYOR_BUILD_VERSION
         if ($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED)
         {
-        $env:MY_XT="$($env:APPVEYOR_REPO_COMMIT_MESSAGE) \n $($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED)"
+        $env:MY_XT="$($env:changelog) \n ## 📱 App Changes \n $($env:APPVEYOR_REPO_COMMIT_MESSAGE) \n $($env:APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED)"
         }
         if ($env:APPVEYOR_BUILD_VERSION -notlike "0.*")
         {
@@ -73,7 +74,7 @@ deploy:
     artifact: /.*/
     tag: "$(MY_AV)"
     release: "📦 JukaApp v$(MY_AV)"
-    description: "## 🍂 Changelog \n $(MY_XT)"
+    description: "$(MY_XT)"
     auth_token:
       secure: XCqLJKrsMnRCCEEcsPL53Emba/2GrP172INtXx86eu5XBbed614ug/2dcx8MZwmr
     draft: false
