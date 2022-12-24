@@ -49,7 +49,7 @@ before_build:
         if ($env:APPVEYOR_BUILD_VERSION -notlike "0.*")
         {
         $env:MY_AV="$($env:package_version)-Nightly-$($env:APPVEYOR_BUILD_VERSION)"
-	Update-AppveyorBuild -Version "$env:MY_AV"
+        Update-AppveyorBuild -Version "$env:MY_AV"
         }
 
 build_script:
