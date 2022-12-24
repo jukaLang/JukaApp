@@ -13,14 +13,11 @@
             Padding="0,0"
             VerticalOptions="Start">
 
-                
-
-
                 <Label
 
                     x:Name="footerText"
                     FontSize="Small"
-                    Text="Visit us at https://jukalang.com for more information"
+                    Text="Developed by Juka Programming Language Team. Visit us at https://jukalang.com for more information"
                     Opacity="1.0"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"

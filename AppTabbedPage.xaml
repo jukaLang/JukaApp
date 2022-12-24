@@ -11,9 +11,9 @@
             <local:MainPage Title="Code" />
         </x:Arguments>
     </NavigationPage>
-    <NavigationPage Title="Files" IconImageSource="{StaticResource TabTwo}">
+    <NavigationPage Title="SysInfo" IconImageSource="{StaticResource TabTwo}">
         <x:Arguments>
-            <local:FilePage Title="Files" />
+            <local:FilePage Title="SysInfo" />
         </x:Arguments>
     </NavigationPage>
     <NavigationPage Title="Docs" IconImageSource="{StaticResource TabThree}">

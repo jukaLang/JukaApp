@@ -5,12 +5,13 @@
              BackgroundColor="White"
              x:Class="JukaApp.FilePage"
 >
-    <Label
+    <Label 
         Padding="10,0,0,0"
         TextColor="#333447"
         Text="Coming Soon!"
         SemanticProperties.HeadingLevel="Level1"
         FontSize="25"
+        x:Name="DisplayDeviceLabel"
         VerticalTextAlignment="Center"
         HorizontalOptions="Start">
     </Label>
