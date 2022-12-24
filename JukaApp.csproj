@@ -16,7 +16,7 @@
         <ApplicationTitle>JukaApp</ApplicationTitle>
 
         <!-- App Identifier -->
-        <ApplicationId>com.companyname.jukaapp</ApplicationId>
+        <ApplicationId>com.jukalang.jukaapp</ApplicationId>
         <ApplicationIdGuid>BB88D58E-F121-446D-A0AF-A0C0E02DB769</ApplicationIdGuid>
 
         <!-- Versions -->

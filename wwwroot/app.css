@@ -1,6 +1,11 @@
-﻿html[data-theme='dark'] {
+﻿html[data-theme='dark'], html[data-theme='dark'] main{
     background-color: black;
     color: white;
+}
+
+html[data-theme='dark'] main .top-row {
+    background-color: rgb(51, 52, 71);
+    border-bottom: 0;
 }
 
 h1 {
@@ -81,7 +86,7 @@ html[data-theme='dark'] .clearlog:hover {
     box-shadow: none;
 }
 
-button {
+button.real {
     font-weight: bold;
     display: inline-block;
     margin-top: 15px;
@@ -101,17 +106,17 @@ button {
     animation: jukaRoll2 0.4s 1;
 }
 
-button:hover {
+button.real:hover {
     box-shadow: 10px 10px 0 -5px white,10px 10px 0 0 rgb(0,224,188);
     animation: jukaRoll 0.4s 1;
 }
 
-html[data-theme='dark'] button {
+html[data-theme='dark'] button.real {
     box-shadow: -10px 10px 0 -5px black,-10px 10px 0 0 rgb(0,224,188);
     animation: jukaDarkRoll2 0.4s 1;
 }
 
-html[data-theme='dark'] button:hover {
+html[data-theme='dark'] button.real:hover {
         box-shadow: 10px 10px 0 -5px black,10px 10px 0 0 rgb(0,224,188);
         animation: jukaDarkRoll 0.4s 1;
     }
@@ -129,40 +134,7 @@ html[data-theme='dark'] button:hover {
     background: lightblue;
 }
 
-.jide_linkbutton {
-    font-weight: bold;
-    display: inline-block;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1.1em;
-    cursor: pointer;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    color: white;
-    background-color: orangered;
-    box-shadow: -10px 10px 0 -5px white,-10px 10px 0 0 orangered;
-    outline: 0;
-    border-bottom: 0;
-    animation: jukaRoll4 0.4s 1;
-}
-
-.jide_linkbutton:hover {
-    box-shadow: 10px 10px 0 -5px white,10px 10px 0 0 orangered;
-    animation: jukaRoll3 0.4s 1;
-}
-
-html[data-theme='dark'] .jide_linkbutton {
-    box-shadow: -10px 10px 0 -5px black,-10px 10px 0 0 orangered;
-    animation: jukaDarkRoll4 0.4s 1;
-}
-
-html[data-theme='dark'] .jide_linkbutton:hover {
-    box-shadow: 10px 10px 0 -5px black,10px 10px 0 0 orangered;
-    animation: jukaDarkRoll3 0.4s 1;
-}
-
-.jide_dlbutton {
+button.real.jide_dlbutton {
     font-weight: bold;
     display: inline-block;
     margin-left: 15px;
@@ -181,22 +153,22 @@ html[data-theme='dark'] .jide_linkbutton:hover {
     animation: jukaRoll6 0.4s 1;
 }
 
-.jide_dlbutton:hover {
+button.real.jide_dlbutton:hover {
     box-shadow: 10px 10px 0 -5px white,10px 10px 0 0 orange;
     animation: jukaRoll5 0.4s 1;
 }
 
-html[data-theme='dark'] .jide_dlbutton {
+html[data-theme='dark'] button.real.jide_dlbutton {
     box-shadow: -10px 10px 0 -5px black,-10px 10px 0 0 orange;
     animation: jukaDarkRoll6 0.4s 1;
 }
 
-html[data-theme='dark'] .jide_dlbutton:hover {
+html[data-theme='dark'] button.real.jide_dlbutton:hover {
     box-shadow: 10px 10px 0 -5px black,10px 10px 0 0 orange;
     animation: jukaDarkRoll5 0.4s 1;
 }
 
-.jide_upbutton {
+button.real.jide_upbutton {
     font-weight: bold;
     display: inline-block;
     margin-left: 15px;
@@ -215,17 +187,17 @@ html[data-theme='dark'] .jide_dlbutton:hover {
     animation: jukaRoll8 0.4s 1;
 }
 
-.jide_upbutton:hover {
+button.real.jide_upbutton:hover {
     box-shadow: 10px 10px 0 -5px white,10px 10px 0 0 green;
     animation: jukaRoll7 0.4s 1;
 }
 
-html[data-theme='dark'] .jide_upbutton {
+html[data-theme='dark'] button.real.jide_upbutton {
     box-shadow: -10px 10px 0 -5px black,-10px 10px 0 0 green;
     animation: jukaDarkRoll8 0.4s 1;
 }
 
-html[data-theme='dark'] .jide_upbutton:hover {
+html[data-theme='dark'] button.real.jide_upbutton:hover {
     box-shadow: 10px 10px 0 -5px black,10px 10px 0 0 green;
     animation: jukaDarkRoll7 0.4s 1;
 }

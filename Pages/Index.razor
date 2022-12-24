@@ -2,7 +2,6 @@
 @using System.Text.Json
 @using BlazorMonaco
 @using JukaCompiler
-@using System.Net.Http.Json
 @inject IJSRuntime JS
 
 <h1>Welcome to Juka IDE</h1>
@@ -22,12 +21,12 @@ Enter Your Code Below and Click Run: <br/><br/>
 </div>
 <MonacoEditor Id="myjukamonaco" ConstructionOptions="EditorConstructionOptions" OnDidChangeModelContent="OnDidChangeModelContent" />
 
-<button @onclick="RunCode">Run Locally (Offline)</button>
+<button class="real" @onclick="RunCode">Run Locally (Offline)</button>
 
-<button class="jide_dlbutton" @onclick="DownloadCode">Download Code</button>
+<button class="jide_dlbutton real" @onclick="DownloadCode">Download Code</button>
 <InputFile OnChange="@UploadCode" multiple id="filePicker" style="display:none"/>
-<button class="jide_upbutton" onclick="document.getElementById('filePicker').click()">Upload Code</button>
-<button @onclick="ChangeDark">@(DarkMode)</button>
+<button class="jide_upbutton real" onclick="document.getElementById('filePicker').click()">Upload Code</button>
+<button class="real" @onclick="ChangeDark">@(DarkMode)</button>
 
 <br/><br/>
 <span class="output">Log: </span><button class="clearlog" @onclick="ClearLog">Clear Log</button><br/>
@@ -46,16 +45,16 @@ Enter Your Code Below and Click Run: <br/><br/>
 
     [Parameter]
     [SupplyParameterFromQuery(Name = "code")]
-    public string? Data { get; set; }
+    public string Data { get; set; }
 
     public TabList tabs = new();
 
 
-    private string? UriValue { get; set; } = "";
+    private string UriValue { get; set; } = "";
     private string DarkMode { get; set; } = "🌕";
 
-    private MonacoEditor? _editor;
-    private StandaloneEditorConstructionOptions EditorConstructionOptions(MonacoEditor? editor)
+    private MonacoEditor _editor;
+    private StandaloneEditorConstructionOptions EditorConstructionOptions(MonacoEditor editor)
     {
         _editor = editor;
 
