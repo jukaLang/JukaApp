@@ -4,8 +4,6 @@
 @using JukaCompiler
 @using System.Net.Http.Json
 @inject IJSRuntime JS
-@inject NavigationManager NavManager
-@inject HttpClient Http
 
 <h1>Welcome to Juka IDE</h1>
 
@@ -25,12 +23,12 @@ Enter Your Code Below and Click Run: <br/><br/>
 <MonacoEditor Id="myjukamonaco" ConstructionOptions="EditorConstructionOptions" OnDidChangeModelContent="OnDidChangeModelContent" />
 
 <button @onclick="RunCode">Run Locally (Offline)</button>
-<button class="jide_linkbutton" @onclick="LinkToCode">Get Link to Code</button>
+
 <button class="jide_dlbutton" @onclick="DownloadCode">Download Code</button>
 <InputFile OnChange="@UploadCode" multiple id="filePicker" style="display:none"/>
 <button class="jide_upbutton" onclick="document.getElementById('filePicker').click()">Upload Code</button>
 <button @onclick="ChangeDark">@(DarkMode)</button>
-<button class="jide_apibutton" @onclick="RunAPI">Run API (Online)</button>
+
 <br/><br/>
 <span class="output">Log: </span><button class="clearlog" @onclick="ClearLog">Clear Log</button><br/>
 <div id="OutputVal">
@@ -126,8 +124,6 @@ Enter Your Code Below and Click Run: <br/><br/>
         {
             var model = await _editor.GetModel();
             Data = await model.GetValue(EndOfLinePreference.TextDefined, false);
-            UriValue = "?code=" + Uri.EscapeDataString(Data);
-            NavManager.NavigateTo($"/{UriValue}");
             tabs.GetCurrentTab().Status = 1;
             tabs.GetCurrentTab().Code = Data;
         }
@@ -165,12 +161,6 @@ Enter Your Code Below and Click Run: <br/><br/>
         tabs.GetCurrentTab().Output.Clean();
     }
 
-    public void LinkToCode()
-    {
-        DateTime starttime = DateTime.Now;
-        string currenturi = NavManager.BaseUri + UriValue;
-        tabs.GetCurrentTab().Output.Add(currenturi, starttime);
-    }
 
     public async Task DownloadCode()
     {
@@ -208,17 +198,6 @@ Enter Your Code Below and Click Run: <br/><br/>
         tabs.GetCurrentTab().Output.Add(new Compiler().Go(Data ?? "", false), starttime);
     }
 
-    public async Task RunAPI()
-    {
-        if (Data != null)
-        {
-            DateTime starttime = DateTime.Now;
-            var httpout = await Http.GetFromJsonAsync<JsonElement>("https://api.jukalang.com/" + Uri.EscapeDataString(Data));
-
-            string outp = httpout.GetProperty("output").GetString() ?? "Failed to Connect to the API";
-            tabs.GetCurrentTab().Output.Add(outp, starttime);
-        }
-    }
 
     public async Task ChangeDark()
     {
