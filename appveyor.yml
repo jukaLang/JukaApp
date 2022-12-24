@@ -11,7 +11,7 @@ skip_non_tags: false
 version: '{build}'
 
 install:
- - ps: $env:package_version = (Invoke-WebRequest -URI "https://api.github.com/repos/JukaLang/juka/releases/latest" | ConvertFrom-Json).tag_name
+ - ps: $env:package_version = (Invoke-WebRequest -URI "https://api.github.com/repos/JukaLang/juka/releases/latest" -UseBasicParsing | ConvertFrom-Json).tag_name
  - ps: $env:changelog = (Invoke-WebRequest -URI "https://api.github.com/repos/JukaLang/juka/releases/latest" -UseBasicParsing | ConvertFrom-Json).body.Split([Environment]::NewLine) | Select -Skip 1 | Out-String
  - ps: Update-AppveyorBuild -Version "$env:package_version"
 
@@ -49,6 +49,7 @@ before_build:
         if ($env:APPVEYOR_BUILD_VERSION -notlike "0.*")
         {
         $env:MY_AV="$($env:package_version)-Nightly-$($env:APPVEYOR_BUILD_VERSION)"
+	Update-AppveyorBuild -Version "$env:MY_AV"
         }
 
 build_script:
@@ -57,8 +58,8 @@ build_script:
 - ps: $Thumbprint = (Get-PfxData -Password $mypwd -FilePath "./Juka.pfx").EndEntityCertificates.Thumbprint
 - ps: dotnet publish JukaApp.sln -f net6.0-android -c Release /p:AndroidKeyStore=True /p:AndroidSigningKeyStore=myapp.keystore /p:AndroidSigningKeyAlias=key /p:AndroidSigningKeyPass=jukarocks /p:AndroidSigningStorePass=jukarocks 
 - ps: dotnet publish JukaApp.sln -f net6.0-windows10.0.19041.0 -c Debug /p:PackageCertificateThumbprint="$Thumbprint" /p:AppxPackageSigningEnabled=true
-- ps: Rename-Item -Path "bin\Debug\net6.0-windows10.0.19041.0\win10-x64\AppPackages\JukaApp_1.0.0.1_Debug_Test\JukaApp_1.0.0.1_x64_Debug.msix" -NewName "Juka_Windows_App_$env:package_version.msix"
-- ps: Rename-Item -Path "bin\Release\net6.0-android\publish\com.jukalang.jukaapp-Signed.apk" -NewName "Juka_Android_App_$env:package_version.apk"
+- ps: Rename-Item -Path "bin\Debug\net6.0-windows10.0.19041.0\win10-x64\AppPackages\JukaApp_1.0.0.1_Debug_Test\JukaApp_1.0.0.1_x64_Debug.msix" -NewName "Juka_Windows_App_$env:MY_AV.msix"
+- ps: Rename-Item -Path "bin\Release\net6.0-android\publish\com.jukalang.jukaapp-Signed.apk" -NewName "Juka_Android_App_$env:MY_AV.apk"
 
 artifacts:
 - path: 'bin\Debug\net6.0-windows10.0.19041.0\win10-x64\AppPackages\JukaApp_1.0.0.1_Debug_Test\Juka_Windows_App_$(APPVEYOR_BUILD_VERSION).msix'
