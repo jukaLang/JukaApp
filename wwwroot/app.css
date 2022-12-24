@@ -1,0 +1,738 @@
+﻿@font-face {
+    font-family: "Roboto";
+    src: url("Roboto-Medium.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: "Roboto";
+    src: url("Roboto-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
+
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+html[data-theme='dark'] {
+    background-color: black;
+    color: white;
+}
+
+h1 {
+    color: white;
+    padding-left: 20px;
+    border-radius: 3px;
+    background-color: rgb(51, 52, 71);
+}
+
+#OutputVal {
+    margin-top: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.eon {
+    color: #652d90;
+}
+
+.inside{
+    cursor: pointer;
+}
+
+.inside:hover:after {
+    background-color: #0275d8;
+    color: white;
+    border-radius: 5px;
+    content: "Click to Copy";
+    cursor: pointer;
+    padding: 3px;
+    font-size: 12px;
+}
+
+.outside {
+    color: rgb(0 224 188);
+    font-style: italic;
+}
+
+.outsidet {
+    color: rgb(0 121 224);
+    font-style: italic;
+}
+
+.inside {
+    font-size: 1.5em;
+}
+
+.clearlog {
+    margin: 0;
+    animation: none;
+    box-shadow: none;
+    background-color: #007acc;
+    color: white;
+    padding: 4px;
+    transition: none;
+}
+
+.clearlog:hover {
+    transition: none;
+    animation: none;
+    box-shadow: none;
+}
+
+html[data-theme='dark'] .clearlog {
+    margin: 0;
+    animation: none;
+    box-shadow: none;
+    background-color: #007acc;
+    color: white;
+    padding: 4px;
+    transition: none;
+}
+
+html[data-theme='dark'] .clearlog:hover {
+    transition: none;
+    animation: none;
+    box-shadow: none;
+}
+
+button {
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 15px;
+    margin-left: 15px;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    color: rgb(51,52,71);
+    background-color: rgb(0,224,188);
+    box-shadow: -10px 10px 0 -5px white,-10px 10px 0 0 rgb(0,224,188);
+    outline: 0;
+    border-bottom: 0;
+    animation: jukaRoll2 0.4s 1;
+}
+
+button:hover {
+    box-shadow: 10px 10px 0 -5px white,10px 10px 0 0 rgb(0,224,188);
+    animation: jukaRoll 0.4s 1;
+}
+
+html[data-theme='dark'] button {
+    box-shadow: -10px 10px 0 -5px black,-10px 10px 0 0 rgb(0,224,188);
+    animation: jukaDarkRoll2 0.4s 1;
+}
+
+html[data-theme='dark'] button:hover {
+        box-shadow: 10px 10px 0 -5px black,10px 10px 0 0 rgb(0,224,188);
+        animation: jukaDarkRoll 0.4s 1;
+    }
+
+.monaco-editor-container {
+    height: 325px;
+    border: 1px solid gray;
+}
+
+.decorationGlyphMarginClass {
+    background: red;
+}
+
+.decorationContentClass {
+    background: lightblue;
+}
+
+.jide_linkbutton {
+    font-weight: bold;
+    display: inline-block;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background-color: orangered;
+    box-shadow: -10px 10px 0 -5px white,-10px 10px 0 0 orangered;
+    outline: 0;
+    border-bottom: 0;
+    animation: jukaRoll4 0.4s 1;
+}
+
+.jide_linkbutton:hover {
+    box-shadow: 10px 10px 0 -5px white,10px 10px 0 0 orangered;
+    animation: jukaRoll3 0.4s 1;
+}
+
+html[data-theme='dark'] .jide_linkbutton {
+    box-shadow: -10px 10px 0 -5px black,-10px 10px 0 0 orangered;
+    animation: jukaDarkRoll4 0.4s 1;
+}
+
+html[data-theme='dark'] .jide_linkbutton:hover {
+    box-shadow: 10px 10px 0 -5px black,10px 10px 0 0 orangered;
+    animation: jukaDarkRoll3 0.4s 1;
+}
+
+.jide_dlbutton {
+    font-weight: bold;
+    display: inline-block;
+    margin-left: 15px;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background-color: orange;
+    box-shadow: -10px 10px 0 -5px white,-10px 10px 0 0 orange;
+    outline: 0;
+    border-bottom: 0;
+    animation: jukaRoll6 0.4s 1;
+}
+
+.jide_dlbutton:hover {
+    box-shadow: 10px 10px 0 -5px white,10px 10px 0 0 orange;
+    animation: jukaRoll5 0.4s 1;
+}
+
+html[data-theme='dark'] .jide_dlbutton {
+    box-shadow: -10px 10px 0 -5px black,-10px 10px 0 0 orange;
+    animation: jukaDarkRoll6 0.4s 1;
+}
+
+html[data-theme='dark'] .jide_dlbutton:hover {
+    box-shadow: 10px 10px 0 -5px black,10px 10px 0 0 orange;
+    animation: jukaDarkRoll5 0.4s 1;
+}
+
+.jide_upbutton {
+    font-weight: bold;
+    display: inline-block;
+    margin-left: 15px;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background-color: green;
+    box-shadow: -10px 10px 0 -5px white,-10px 10px 0 0 green;
+    outline: 0;
+    border-bottom: 0;
+    animation: jukaRoll8 0.4s 1;
+}
+
+.jide_upbutton:hover {
+    box-shadow: 10px 10px 0 -5px white,10px 10px 0 0 green;
+    animation: jukaRoll7 0.4s 1;
+}
+
+html[data-theme='dark'] .jide_upbutton {
+    box-shadow: -10px 10px 0 -5px black,-10px 10px 0 0 green;
+    animation: jukaDarkRoll8 0.4s 1;
+}
+
+html[data-theme='dark'] .jide_upbutton:hover {
+    box-shadow: 10px 10px 0 -5px black,10px 10px 0 0 green;
+    animation: jukaDarkRoll7 0.4s 1;
+}
+
+
+
+.jide_apibutton {
+    font-weight: bold;
+    display: inline-block;
+    margin-left: 15px;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background-color: #795548;
+    box-shadow: -10px 10px 0 -5px white,-10px 10px 0 0 #795548;
+    outline: 0;
+    border-bottom: 0;
+    animation: jukaRoll10 0.4s 1;
+}
+
+.jide_apibutton:hover {
+    box-shadow: 10px 10px 0 -5px white,10px 10px 0 0 #795548;
+    animation: jukaRoll9 0.4s 1;
+}
+
+html[data-theme='dark'] .jide_apibutton {
+    box-shadow: -10px 10px 0 -5px black,-10px 10px 0 0 #795548;
+    animation: jukaDarkRoll10 0.4s 1;
+}
+
+html[data-theme='dark'] .jide_apibutton:hover {
+    box-shadow: 10px 10px 0 -5px black,10px 10px 0 0 #795548;
+    animation: jukaDarkRoll9 0.4s 1;
+}
+
+@keyframes jukaRoll10 {
+    0% {
+        box-shadow: 10px 10px 0 -5px white, 10px 10px 0 0 #795548;
+    }
+
+    33.3333% {
+        box-shadow: 10px -10px 0 -5px white, 10px -10px 0 0 #795548;
+    }
+
+    66.6666% {
+        box-shadow: -10px -10px 0 -5px white, -10px -10px 0 0 #795548;
+    }
+
+    100% {
+        box-shadow: -10px 10px 0 -5px white, -10px 10px 0 0 #795548;
+    }
+}
+
+@keyframes jukaRoll9 {
+    0% {
+        box-shadow: -10px 10px 0 -5px white, -10px 10px 0 0 #795548;
+    }
+
+    33.3333% {
+        box-shadow: -10px -10px 0 -5px white, -10px -10px 0 0 #795548;
+    }
+
+    66.6666% {
+        box-shadow: 10px -10px 0 -5px white, 10px -10px 0 0 #795548;
+    }
+
+    100% {
+        box-shadow: 10px 10px 0 -5px white, 10px 10px 0 0 #795548;
+    }
+}
+
+
+@keyframes jukaRoll8 {
+    0% {
+        box-shadow: 10px 10px 0 -5px white, 10px 10px 0 0 green;
+    }
+
+    33.3333% {
+        box-shadow: 10px -10px 0 -5px white, 10px -10px 0 0 green;
+    }
+
+    66.6666% {
+        box-shadow: -10px -10px 0 -5px white, -10px -10px 0 0 green;
+    }
+
+    100% {
+        box-shadow: -10px 10px 0 -5px white, -10px 10px 0 0 green;
+    }
+}
+
+@keyframes jukaRoll7 {
+    0% {
+        box-shadow: -10px 10px 0 -5px white, -10px 10px 0 0 green;
+    }
+
+    33.3333% {
+        box-shadow: -10px -10px 0 -5px white, -10px -10px 0 0 green;
+    }
+
+    66.6666% {
+        box-shadow: 10px -10px 0 -5px white, 10px -10px 0 0 green;
+    }
+
+    100% {
+        box-shadow: 10px 10px 0 -5px white, 10px 10px 0 0 green;
+    }
+}
+
+
+@keyframes jukaRoll6 {
+    0% {
+        box-shadow: 10px 10px 0 -5px white, 10px 10px 0 0 orange;
+    }
+
+    33.3333% {
+        box-shadow: 10px -10px 0 -5px white, 10px -10px 0 0 orange;
+    }
+
+    66.6666% {
+        box-shadow: -10px -10px 0 -5px white, -10px -10px 0 0 orange;
+    }
+
+    100% {
+        box-shadow: -10px 10px 0 -5px white, -10px 10px 0 0 orange;
+    }
+}
+
+@keyframes jukaRoll5 {
+    0% {
+        box-shadow: -10px 10px 0 -5px white, -10px 10px 0 0 orange;
+    }
+
+    33.3333% {
+        box-shadow: -10px -10px 0 -5px white, -10px -10px 0 0 orange;
+    }
+
+    66.6666% {
+        box-shadow: 10px -10px 0 -5px white, 10px -10px 0 0 orange;
+    }
+
+    100% {
+        box-shadow: 10px 10px 0 -5px white, 10px 10px 0 0 orange;
+    }
+}
+
+@keyframes jukaRoll4 {
+    0% {
+        box-shadow: 10px 10px 0 -5px white, 10px 10px 0 0 orangered;
+    }
+
+    33.3333% {
+        box-shadow: 10px -10px 0 -5px white, 10px -10px 0 0 orangered;
+    }
+
+    66.6666% {
+        box-shadow: -10px -10px 0 -5px white, -10px -10px 0 0 orangered;
+    }
+
+    100% {
+        box-shadow: -10px 10px 0 -5px white, -10px 10px 0 0 orangered;
+    }
+}
+
+@keyframes jukaRoll3 {
+    0% {
+        box-shadow: -10px 10px 0 -5px white, -10px 10px 0 0 orangered;
+    }
+
+    33.3333% {
+        box-shadow: -10px -10px 0 -5px white, -10px -10px 0 0 orangered;
+    }
+
+    66.6666% {
+        box-shadow: 10px -10px 0 -5px white, 10px -10px 0 0 orangered;
+    }
+
+    100% {
+        box-shadow: 10px 10px 0 -5px white, 10px 10px 0 0 orangered;
+    }
+}
+
+@keyframes jukaRoll2 {
+    0% {
+        box-shadow: 10px 10px 0 -5px white, 10px 10px 0 0 rgb(0, 224, 188);
+    }
+
+    33.3333% {
+        box-shadow: 10px -10px 0 -5px white, 10px -10px 0 0 rgb(0, 224, 188);
+    }
+
+    66.6666% {
+        box-shadow: -10px -10px 0 -5px white, -10px -10px 0 0 rgb(0, 224, 188);
+    }
+
+    100% {
+        box-shadow: -10px 10px 0 -5px white, -10px 10px 0 0 rgb(0, 224, 188);
+    }
+}
+
+@keyframes jukaRoll {
+    0% {
+        box-shadow: -10px 10px 0 -5px white, -10px 10px 0 0 rgb(0, 224, 188);
+    }
+
+    33.3333% {
+        box-shadow: -10px -10px 0 -5px white, -10px -10px 0 0 rgb(0, 224, 188);
+    }
+
+    66.6666% {
+        box-shadow: 10px -10px 0 -5px white, 10px -10px 0 0 rgb(0, 224, 188);
+    }
+
+    100% {
+        box-shadow: 10px 10px 0 -5px white, 10px 10px 0 0 rgb(0, 224, 188);
+    }
+}
+
+
+@keyframes jukaDarkRoll10 {
+    0% {
+        box-shadow: 10px 10px 0 -5px rgb(0, 0, 0), 10px 10px 0 0 #795548;
+    }
+
+    33.3333% {
+        box-shadow: 10px -10px 0 -5px rgb(0, 0, 0), 10px -10px 0 0 #795548;
+    }
+
+    66.6666% {
+        box-shadow: -10px -10px 0 -5px rgb(0, 0, 0), -10px -10px 0 0 #795548;
+    }
+
+    100% {
+        box-shadow: -10px 10px 0 -5px rgb(0, 0, 0), -10px 10px 0 0 #795548;
+    }
+
+}
+
+@keyframes jukaDarkRoll9 {
+    0% {
+        box-shadow: -10px 10px 0 -5px rgb(0, 0, 0), -10px 10px 0 0 #795548;
+    }
+
+    33.3333% {
+        box-shadow: -10px -10px 0 -5px rgb(0, 0, 0), -10px -10px 0 0 #795548;
+    }
+
+    66.6666% {
+        box-shadow: 10px -10px 0 -5px rgb(0, 0, 0), 10px -10px 0 0 #795548;
+    }
+
+    100% {
+        box-shadow: 10px 10px 0 -5px rgb(0, 0, 0), 10px 10px 0 0 #795548;
+    }
+}
+
+@keyframes jukaDarkRoll8 {
+    0% {
+        box-shadow: 10px 10px 0 -5px rgb(0, 0, 0), 10px 10px 0 0 green;
+    }
+
+    33.3333% {
+        box-shadow: 10px -10px 0 -5px rgb(0, 0, 0), 10px -10px 0 0 green;
+    }
+
+    66.6666% {
+        box-shadow: -10px -10px 0 -5px rgb(0, 0, 0), -10px -10px 0 0 green;
+    }
+
+    100% {
+        box-shadow: -10px 10px 0 -5px rgb(0, 0, 0), -10px 10px 0 0 green;
+    }
+}
+
+@keyframes jukaDarkRoll7 {
+    0% {
+        box-shadow: -10px 10px 0 -5px rgb(0, 0, 0), -10px 10px 0 0 green;
+    }
+
+    33.3333% {
+        box-shadow: -10px -10px 0 -5px rgb(0, 0, 0), -10px -10px 0 0 green;
+    }
+
+    66.6666% {
+        box-shadow: 10px -10px 0 -5px rgb(0, 0, 0), 10px -10px 0 0 green;
+    }
+
+    100% {
+        box-shadow: 10px 10px 0 -5px rgb(0, 0, 0), 10px 10px 0 0 green;
+    }
+}
+
+@keyframes jukaDarkRoll6 {
+    0% {
+        box-shadow: 10px 10px 0 -5px rgb(0, 0, 0), 10px 10px 0 0 orange;
+    }
+
+    33.3333% {
+        box-shadow: 10px -10px 0 -5px rgb(0, 0, 0), 10px -10px 0 0 orange;
+    }
+
+    66.6666% {
+        box-shadow: -10px -10px 0 -5px rgb(0, 0, 0), -10px -10px 0 0 orange;
+    }
+
+    100% {
+        box-shadow: -10px 10px 0 -5px rgb(0, 0, 0), -10px 10px 0 0 orange;
+    }
+}
+
+@keyframes jukaDarkRoll5 {
+    0% {
+        box-shadow: -10px 10px 0 -5px rgb(0, 0, 0), -10px 10px 0 0 orange;
+    }
+
+    33.3333% {
+        box-shadow: -10px -10px 0 -5px rgb(0, 0, 0), -10px -10px 0 0 orange;
+    }
+
+    66.6666% {
+        box-shadow: 10px -10px 0 -5px rgb(0, 0, 0), 10px -10px 0 0 orange;
+    }
+
+    100% {
+        box-shadow: 10px 10px 0 -5px rgb(0, 0, 0), 10px 10px 0 0 orange;
+    }
+}
+
+
+@keyframes jukaDarkRoll4 {
+    0% {
+        box-shadow: 10px 10px 0 -5px rgb(0, 0, 0), 10px 10px 0 0 orangered;
+    }
+
+    33.3333% {
+        box-shadow: 10px -10px 0 -5px rgb(0, 0, 0), 10px -10px 0 0 orangered;
+    }
+
+    66.6666% {
+        box-shadow: -10px -10px 0 -5px rgb(0, 0, 0), -10px -10px 0 0 orangered;
+    }
+
+    100% {
+        box-shadow: -10px 10px 0 -5px rgb(0, 0, 0), -10px 10px 0 0 orangered;
+    }
+}
+
+@keyframes jukaDarkRoll3 {
+    0% {
+        box-shadow: -10px 10px 0 -5px rgb(0, 0, 0), -10px 10px 0 0 orangered;
+    }
+
+    33.3333% {
+        box-shadow: -10px -10px 0 -5px rgb(0, 0, 0), -10px -10px 0 0 orangered;
+    }
+
+    66.6666% {
+        box-shadow: 10px -10px 0 -5px rgb(0, 0, 0), 10px -10px 0 0 orangered;
+    }
+
+    100% {
+        box-shadow: 10px 10px 0 -5px rgb(0, 0, 0), 10px 10px 0 0 orangered;
+    }
+}
+
+
+
+@keyframes jukaDarkRoll2 {
+    0% {
+        box-shadow: 10px 10px 0 -5px rgb(0, 0, 0), 10px 10px 0 0 rgb(0, 224, 188);
+    }
+
+    33.3333% {
+        box-shadow: 10px -10px 0 -5px rgb(0, 0, 0), 10px -10px 0 0 rgb(0, 224, 188);
+    }
+
+    66.6666% {
+        box-shadow: -10px -10px 0 -5px rgb(0, 0, 0), -10px -10px 0 0 rgb(0, 224, 188);
+    }
+
+    100% {
+        box-shadow: -10px 10px 0 -5px rgb(0, 0, 0), -10px 10px 0 0 rgb(0, 224, 188);
+    }
+}
+
+@keyframes jukaDarkRoll {
+    0% {
+        box-shadow: -10px 10px 0 -5px rgb(0, 0, 0), -10px 10px 0 0 rgb(0, 224, 188);
+    }
+
+    33.3333% {
+        box-shadow: -10px -10px 0 -5px rgb(0, 0, 0), -10px -10px 0 0 rgb(0, 224, 188);
+    }
+
+    66.6666% {
+        box-shadow: 10px -10px 0 -5px rgb(0, 0, 0), 10px -10px 0 0 rgb(0, 224, 188);
+    }
+
+    100% {
+        box-shadow: 10px 10px 0 -5px rgb(0, 0, 0), 10px 10px 0 0 rgb(0, 224, 188);
+    }
+}
+
+.floating-update-button {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+@keyframes fadein {
+    from {
+        right: -100%;
+    }
+
+    to {
+        right: 2rem;
+    }
+}
+
+
+/* Style the tab */
+.jide_tab {
+    overflow: hidden;
+    border: none;
+    background-color: #f1f1f1;
+}
+
+html[data-theme='dark'] .jide_tab {
+    background-color: #2e2f40;
+}
+
+/* Style the buttons inside the tab */
+.jide_tab .jide_tab_button {
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    border-top: 4px solid rgb(25,225,198);
+    background-color: #8fafb9;
+    color: white;
+    float: left;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    animation: none;
+    margin: 0;
+    margin-right: 3px;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+html[data-theme='dark'] .jide_tab .jide_tab_button {
+    animation: none;
+    box-shadow: none;
+}
+
+/* Change background color of buttons on hover */
+.jide_tab .jide_tab_button:hover {
+    background-color: #ef7171;
+}
+
+/* Create an active/current tablink class */
+.jide_tab .jide_tab_button.active {
+    background-color: rgb(48, 56, 70);
+}
+
+.jide_tab .jide_plusbutton {
+    font-weight: bold;
+    border: none;
+    margin-top: 4px;
+    padding: 12px 10px;
+    cursor: pointer;
+    margin-left: 5px;
+    box-shadow:none;
+    border-radius:0;
+    animation: none;
+    background: transparent;
+}
+
+.jide_status_neutral {
+    color: #00dfbb;
+}
+
+.jide_status_edited {
+    color: yellow;
+} 

@@ -1,0 +1,238 @@
+﻿@page "/"
+@using System.Text.Json
+@using BlazorMonaco
+@using JukaCompiler
+@using System.Net.Http.Json
+@inject IJSRuntime JS
+@inject NavigationManager NavManager
+@inject HttpClient Http
+
+<h1>Welcome to Juka IDE</h1>
+
+Enter Your Code Below and Click Run: <br/><br/>
+
+
+<div class="jide_tab">
+@foreach (var tab in tabs.List())
+{
+    <button class="jide_tab_button @(tabs.GetCurrentTab() == tab ? "active" : "")" title="@(tab.Id)" onclick="@(() => SelectTab(tab.Id))">
+        <span class="@((tab.Status == 0 ? "jide_status_neutral" : "jide_status_edited"))">●</span> <span contenteditable="true">@tab.Name</span> &nbsp;&nbsp;
+        <span @onclick="@(() => DeleteTab(tab.Id))">✖</span>
+    </button>
+}
+    <button class="jide_plusbutton" @onclick="addTab">+</button>
+</div>
+<MonacoEditor Id="myjukamonaco" ConstructionOptions="EditorConstructionOptions" OnDidChangeModelContent="OnDidChangeModelContent" />
+
+<button @onclick="RunCode">Run Locally (Offline)</button>
+<button class="jide_linkbutton" @onclick="LinkToCode">Get Link to Code</button>
+<button class="jide_dlbutton" @onclick="DownloadCode">Download Code</button>
+<InputFile OnChange="@UploadCode" multiple id="filePicker" style="display:none"/>
+<button class="jide_upbutton" onclick="document.getElementById('filePicker').click()">Upload Code</button>
+<button @onclick="ChangeDark">@(DarkMode)</button>
+<button class="jide_apibutton" @onclick="RunAPI">Run API (Online)</button>
+<br/><br/>
+<span class="output">Log: </span><button class="clearlog" @onclick="ClearLog">Clear Log</button><br/>
+<div id="OutputVal">
+    @foreach (var entry in tabs.GetCurrentTab().Output.List())
+    {
+        <div class="entry">
+            <span class="eon">[@entry.started.ToString("F")]</span><span class="outside"> [Running Juka...]</span><br/>
+            <span class="inside" @onclick="@(() => CopyToClipboard(entry.message))" >@(entry.message)</span><br />
+            <span class="eon">[@entry.completed.ToString("F")]</span><span class="outsidet"> [Completed]</span>
+        </div>
+     }
+</div>
+
+@code {
+
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "code")]
+    public string? Data { get; set; }
+
+    public TabList tabs = new();
+
+
+    private string? UriValue { get; set; } = "";
+    private string DarkMode { get; set; } = "🌕";
+
+    private MonacoEditor? _editor;
+    private StandaloneEditorConstructionOptions EditorConstructionOptions(MonacoEditor? editor)
+    {
+        _editor = editor;
+
+        if (String.IsNullOrEmpty(Data))
+        {
+            Data = @"func main() = {
+    // outputs 'Hello World'
+    var x = ""Hello World"";
+    printLine(x);
+}";
+        }
+
+        tabs.GetCurrentTab().Code = Data;
+
+        return new StandaloneEditorConstructionOptions
+        {
+            AutomaticLayout = true,
+                Language = "juka",
+                Value = Data
+        };
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        DateTime starttime = DateTime.Now;
+        await JS.InvokeVoidAsync("blazorMonaco.languages.register");
+        await MonacoEditorBase.DefineTheme("JukaTheme", new StandaloneThemeData
+        {
+            Base = "vs",
+            Inherit = true,
+            Rules = new List<TokenThemeRule>
+            {
+                new() { Token = "func", Foreground = "00e0bc" },
+                new() { Token = "keyword", Foreground = "FF4500" },
+                new() { Token = "number", Foreground = "54a154" },
+                new() { Token = "comment", Foreground = "888ed1" }
+            }
+        });
+        await MonacoEditorBase.DefineTheme("JukaThemeDark", new StandaloneThemeData
+        {
+            Base = "vs-dark",
+            Inherit = true,
+            Rules = new List<TokenThemeRule>
+            {
+                new() { Token = "func", Foreground = "00e0bc" },
+                new() { Token = "keyword", Foreground = "FF4500" },
+                new() { Token = "number", Foreground = "54a154" },
+                new() { Token = "comment", Foreground = "888ed1" }
+            }
+        });
+
+        await MonacoEditorBase.SetTheme("JukaTheme");
+        tabs.GetCurrentTab().Output.Add("Juka Loaded. Click \"Run Code\" to run the code!",starttime);
+    }
+
+    public async Task CopyToClipboard(string mytext)
+    {
+        DateTime starttime = DateTime.Now;
+        tabs.GetCurrentTab().Output.Add("Copied: \"" + mytext + "\" to clipboard!", starttime);
+        await JS.InvokeVoidAsync("navigator.clipboard.writeText", mytext);
+    }
+
+    public async Task OnDidChangeModelContent(ModelContentChangedEvent e)
+    {
+        if (_editor != null)
+        {
+            var model = await _editor.GetModel();
+            Data = await model.GetValue(EndOfLinePreference.TextDefined, false);
+            UriValue = "?code=" + Uri.EscapeDataString(Data);
+            NavManager.NavigateTo($"/{UriValue}");
+            tabs.GetCurrentTab().Status = 1;
+            tabs.GetCurrentTab().Code = Data;
+        }
+    }
+
+    public void SelectTab(int id)
+    {
+        tabs.SetCurrentTab(id);
+        if (_editor != null)
+        {
+            _editor.SetValue(tabs.GetCurrentTab().Code);
+        }
+    }
+
+    public void addTab()
+    {
+        tabs.Add();
+        if (_editor != null)
+        {
+            _editor.SetValue(tabs.GetCurrentTab().Code);
+        }
+    }
+
+    public void DeleteTab(int id)
+    {
+        tabs.Delete(id);
+        if (_editor != null)
+        {
+            _editor.SetValue(tabs.GetCurrentTab().Code);
+        }
+    }
+
+    public void ClearLog()
+    {
+        tabs.GetCurrentTab().Output.Clean();
+    }
+
+    public void LinkToCode()
+    {
+        DateTime starttime = DateTime.Now;
+        string currenturi = NavManager.BaseUri + UriValue;
+        tabs.GetCurrentTab().Output.Add(currenturi, starttime);
+    }
+
+    public async Task DownloadCode()
+    {
+        await JS.InvokeVoidAsync("blazorMonaco.languages.download", Data, tabs.GetCurrentTab().Name);
+    }
+
+    public async Task UploadCode(InputFileChangeEventArgs e)
+    {
+        DateTime starttime = DateTime.Now;
+        if (_editor != null)
+        {
+            try
+            {
+                foreach (var file in e.GetMultipleFiles(1))
+                {
+                    Data = await new StreamReader(file.OpenReadStream(15728640)).ReadToEndAsync();
+
+                    
+                    tabs.Add(file.Name, Data);
+
+                    await _editor.SetValue(Data);
+                }
+                tabs.GetCurrentTab().Output.Add("Finished Loading File...", starttime);
+            }
+            catch (Exception)
+            {
+                tabs.GetCurrentTab().Output.Add("File Failed to load. Make sure the file doesn't exceed 15MB or 15728640 bytes", starttime);
+            }
+        }
+    }
+
+    public void RunCode()
+    {
+        DateTime starttime = DateTime.Now;
+        tabs.GetCurrentTab().Output.Add(new Compiler().Go(Data ?? "", false), starttime);
+    }
+
+    public async Task RunAPI()
+    {
+        if (Data != null)
+        {
+            DateTime starttime = DateTime.Now;
+            var httpout = await Http.GetFromJsonAsync<JsonElement>("https://api.jukalang.com/" + Uri.EscapeDataString(Data));
+
+            string outp = httpout.GetProperty("output").GetString() ?? "Failed to Connect to the API";
+            tabs.GetCurrentTab().Output.Add(outp, starttime);
+        }
+    }
+
+    public async Task ChangeDark()
+    {
+        if (DarkMode == "🌕")
+        {
+            await MonacoEditorBase.SetTheme("JukaThemeDark");
+            await JS.InvokeVoidAsync("blazorMonaco.languages.dark");
+            DarkMode = "🌞";
+        }
+        else
+        {
+            await MonacoEditorBase.SetTheme("JukaTheme");
+            await JS.InvokeVoidAsync("blazorMonaco.languages.light");
+            DarkMode = "🌕";
+        }
+    }
+}

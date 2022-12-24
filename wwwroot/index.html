@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=yes" />
+    <title>Loading...Juka IDE (WebApp)</title>
+    <meta data-rh="true" property="og:image" content="/favicon.png">
+    <meta data-rh="true" name="twitter:image" content="/favicon.png">
+    <meta data-rh="true" property="og:url" content="/favicon.png">
+    <meta data-rh="true" name="keywords" content="juka,programming,language,future,ide,editor,runeverywhere,buildonce">
+    <meta data-rh="true" name="twitter:card" content="Juka Programming Language IDE. Visit our official page at https://jukaLang.com Got a question? Connect with us via Discord or Twitter">
+    <meta data-rh="true" property="og:title" content="Juka Programming Language | IDE">
+    <meta data-rh="true" name="description" content="Juka Programming Language - IDE">
+    <meta data-rh="true" property="og:description" content="Juka Programming Language - IDE">
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
+    <base href="/" />
+    <link href="manifest.json" rel="manifest" />
+    <link href="app.css" rel="stylesheet" />
+    <link rel="apple-touch-icon" sizes="512x512" href="maskable_icon_x512.png" />
+    <link rel="apple-touch-icon" sizes="384x384" href="maskable_icon_x384.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="maskable_icon_x192.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="maskable_icon_x152.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="maskable_icon_x144.png" />
+    <link rel="apple-touch-icon" sizes="128x128" href="maskable_icon_x128.png" />
+    <link rel="apple-touch-icon" sizes="96x96" href="maskable_icon_x96.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="maskable_icon_x72.png" />
+    <link rel="apple-touch-icon" sizes="48x48" href="maskable_icon_x48.png" />
+    <link href="_content/BlazorMonaco/lib/monaco-editor/min/vs/editor/editor.main.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="app">Downloading and Caching Juka and Juka IDE...Please wait! 
+    Once done, Juka will be able to be ran "offline" from your device. Note this may take a while!</div>
+    <script src="_content/BlazorMonaco/lib/monaco-editor/min/vs/loader.js"></script>
+    <script>require.config({ paths: { 'vs': '_content/BlazorMonaco/lib/monaco-editor/min/vs' } });</script>
+    <script src="_content/BlazorMonaco/lib/monaco-editor/min/vs/editor/editor.main.js"></script>
+    <script src="jukaeditor.js"></script>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="sw-registrator.js"></script>
+</body>
+</html>
