@@ -35,7 +35,7 @@ before_build:
  - 7z x commandlinetools-win-8512546_latest.zip -o"C:\Program Files (x86)\Android\android-sdk\cmdline-tools" > nul
  - mv "C:\Program Files (x86)\Android\android-sdk\cmdline-tools\cmdline-tools" "C:\Program Files (x86)\Android\android-sdk\cmdline-tools\tools"
  - yes | "C:\Program Files (x86)\Android\android-sdk\cmdline-tools\tools\bin\sdkmanager.bat" --licenses
- - yes | "C:\Program Files (x86)\Android\android-sdk\cmdline-tools\tools\bin\sdkmanager.bat" "platform-tools" "platforms;android-31"
+ - yes | "C:\Program Files (x86)\Android\android-sdk\cmdline-tools\tools\bin\sdkmanager.bat" "platform-tools" "platforms;android-33"
  - ps: dotnet workload install maui
  - ps: dotnet workload restore JukaApp.sln
  - ps: dotnet add package JukaCompiler
@@ -56,16 +56,16 @@ build_script:
 - ps: certutil -user -p jukatest -importPFX Juka.pfx NoRoot
 - ps: $mypwd = ConvertTo-SecureString -String "jukatest" -Force -AsPlainText
 - ps: $Thumbprint = (Get-PfxData -Password $mypwd -FilePath "./Juka.pfx").EndEntityCertificates.Thumbprint
-- ps: dotnet publish JukaApp.sln -f net6.0-android -c Release /p:AndroidKeyStore=True /p:AndroidSigningKeyStore=myapp.keystore /p:AndroidSigningKeyAlias=key /p:AndroidSigningKeyPass=jukarocks /p:AndroidSigningStorePass=jukarocks 
-- ps: dotnet publish JukaApp.sln -f net6.0-windows10.0.19041.0 -c Debug /p:PackageCertificateThumbprint="$Thumbprint" /p:AppxPackageSigningEnabled=true
-- ps: Rename-Item -Path "bin\Debug\net6.0-windows10.0.19041.0\win10-x64\AppPackages\JukaApp_1.0.0.1_Debug_Test\JukaApp_1.0.0.1_x64_Debug.msix" -NewName "Juka_Windows_App_$env:MY_AV.msix"
-- ps: Rename-Item -Path "bin\Release\net6.0-android\publish\com.jukalang.jukaapp-Signed.apk" -NewName "Juka_Android_App_$env:MY_AV.apk"
+- ps: dotnet publish JukaApp.sln -f net7.0-android -c Release /p:AndroidKeyStore=True /p:AndroidSigningKeyStore=myapp.keystore /p:AndroidSigningKeyAlias=key /p:AndroidSigningKeyPass=jukarocks /p:AndroidSigningStorePass=jukarocks 
+- ps: dotnet publish JukaApp.sln -f net7.0-windows10.0.19041.0 -c Debug /p:PackageCertificateThumbprint="$Thumbprint" /p:AppxPackageSigningEnabled=true
+- ps: Rename-Item -Path "bin\Debug\net7.0-windows10.0.19041.0\win10-x64\AppPackages\JukaApp_1.0.0.1_Debug_Test\JukaApp_1.0.0.1_x64_Debug.msix" -NewName "Juka_Windows_App_$env:MY_AV.msix"
+- ps: Rename-Item -Path "bin\Release\net7.0-android\publish\com.jukalang.jukaapp-Signed.apk" -NewName "Juka_Android_App_$env:MY_AV.apk"
 
 artifacts:
-- path: 'bin\Debug\net6.0-windows10.0.19041.0\win10-x64\AppPackages\JukaApp_1.0.0.1_Debug_Test\Juka_Windows_App_$(APPVEYOR_BUILD_VERSION).msix'
+- path: 'bin\Debug\net7.0-windows10.0.19041.0\win10-x64\AppPackages\JukaApp_1.0.0.1_Debug_Test\Juka_Windows_App_$(APPVEYOR_BUILD_VERSION).msix'
   name: Juka_Windows_App_$(APPVEYOR_BUILD_VERSION).msix
 
-- path: 'bin\Release\net6.0-android\publish\Juka_Android_App_$(APPVEYOR_BUILD_VERSION).apk'
+- path: 'bin\Release\net7.0-android\publish\Juka_Android_App_$(APPVEYOR_BUILD_VERSION).apk'
   name: Juka_Android_App_$(APPVEYOR_BUILD_VERSION).apk
 
 
