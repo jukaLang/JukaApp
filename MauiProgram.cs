@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.WebView.Maui;
-
-namespace JukaApp;
+﻿namespace JukaApp;
 
 public static class MauiProgram
 {

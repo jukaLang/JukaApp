@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using System.Text.Json
 @using BlazorMonaco
+@using BlazorMonaco.Editor
 @using JukaCompiler
 @inject IJSRuntime JS
 
@@ -19,7 +20,7 @@ Enter Your Code Below and Click Run: <br/><br/>
 }
     <button class="jide_plusbutton" @onclick="addTab">+</button>
 </div>
-<MonacoEditor Id="myjukamonaco" ConstructionOptions="EditorConstructionOptions" OnDidChangeModelContent="OnDidChangeModelContent" />
+<StandaloneCodeEditor Id="myjukamonaco" ConstructionOptions="EditorConstructionOptions" OnDidChangeModelContent="OnDidChangeModelContent" />
 
 <button class="real" @onclick="RunCode">Run Locally (Offline)</button>
 
@@ -53,8 +54,8 @@ Enter Your Code Below and Click Run: <br/><br/>
     private string UriValue { get; set; } = "";
     private string DarkMode { get; set; } = "🌕";
 
-    private MonacoEditor _editor;
-    private StandaloneEditorConstructionOptions EditorConstructionOptions(MonacoEditor editor)
+    private StandaloneCodeEditor _editor;
+    private StandaloneEditorConstructionOptions EditorConstructionOptions(StandaloneCodeEditor editor)
     {
         _editor = editor;
 
@@ -81,7 +82,7 @@ Enter Your Code Below and Click Run: <br/><br/>
     {
         DateTime starttime = DateTime.Now;
         await JS.InvokeVoidAsync("blazorMonaco.languages.register");
-        await MonacoEditorBase.DefineTheme("JukaTheme", new StandaloneThemeData
+        await Global.DefineTheme("JukaTheme", new StandaloneThemeData
         {
             Base = "vs",
             Inherit = true,
@@ -91,9 +92,15 @@ Enter Your Code Below and Click Run: <br/><br/>
                 new() { Token = "keyword", Foreground = "FF4500" },
                 new() { Token = "number", Foreground = "54a154" },
                 new() { Token = "comment", Foreground = "888ed1" }
+            },
+            Colors = new Dictionary<string, string>
+            {
+                ["editor.background"] = "#FFFFFF",
+                ["editorCursor.foreground"] = "#363636",
+                ["editorLineNumber.foreground"] = "#DADADA"
             }
         });
-        await MonacoEditorBase.DefineTheme("JukaThemeDark", new StandaloneThemeData
+        await Global.DefineTheme("JukaThemeDark", new StandaloneThemeData
         {
             Base = "vs-dark",
             Inherit = true,
@@ -103,10 +110,16 @@ Enter Your Code Below and Click Run: <br/><br/>
                 new() { Token = "keyword", Foreground = "FF4500" },
                 new() { Token = "number", Foreground = "54a154" },
                 new() { Token = "comment", Foreground = "888ed1" }
+            },
+            Colors = new Dictionary<string, string>
+            {
+                ["editor.background"] = "#363636",
+                ["editorCursor.foreground"] = "#E0E0E0",
+                ["editorLineNumber.foreground"] = "#7A7A7A"
             }
         });
 
-        await MonacoEditorBase.SetTheme("JukaTheme");
+        await Global.SetTheme("JukaTheme");
         tabs.GetCurrentTab().Output.Add("Juka Loaded. Click \"Run Code\" to run the code!",starttime);
     }
 
@@ -195,6 +208,7 @@ Enter Your Code Below and Click Run: <br/><br/>
     {
         DateTime starttime = DateTime.Now;
         tabs.GetCurrentTab().Output.Add(new Compiler().Go(Data ?? "", false), starttime);
+        JS.InvokeVoidAsync("blazorMonaco.languages.focus");
     }
 
 
@@ -202,13 +216,13 @@ Enter Your Code Below and Click Run: <br/><br/>
     {
         if (DarkMode == "🌕")
         {
-            await MonacoEditorBase.SetTheme("JukaThemeDark");
+            await Global.SetTheme("JukaThemeDark");
             await JS.InvokeVoidAsync("blazorMonaco.languages.dark");
             DarkMode = "🌞";
         }
         else
         {
-            await MonacoEditorBase.SetTheme("JukaTheme");
+            await Global.SetTheme("JukaTheme");
             await JS.InvokeVoidAsync("blazorMonaco.languages.light");
             DarkMode = "🌕";
         }

@@ -1,22 +1,25 @@
 ﻿@page "/notes"
+@using System.Text.Json
+@using BlazorMonaco
+@using BlazorMonaco.Editor
+@inject IJSRuntime JS
 
 <h1>Juka Notes</h1>
 
-<textarea id="jukanotes" rows="4" cols="50" style="width:100%" placeholder="Enter your notes here...">
-</textarea>
-
+<StandaloneCodeEditor Id="jukanotes" ConstructionOptions="EditorConstructionOptions" />
 
 @code{
 
-    public async Task UploadCode(InputFileChangeEventArgs e)
+    private StandaloneCodeEditor _editor;
+    private StandaloneEditorConstructionOptions EditorConstructionOptions(StandaloneCodeEditor editor)
     {
-        try
+        _editor = editor;
+        return new StandaloneEditorConstructionOptions
         {
-        }
-        catch (Exception)
-        {
-            
-        }
+            AutomaticLayout = true,
+            Language = "",
+            Value = "Notes"
+        };
     }
 
 }

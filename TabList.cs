@@ -4,7 +4,7 @@
     {
         Queue<Tab> tabs = new();
 
-        public int CurrentTab = 0;
+        public int CurrentTab;
 
         public TabList()
         {
