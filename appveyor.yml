@@ -56,16 +56,16 @@ build_script:
 - ps: certutil -user -p jukatest -importPFX Juka.pfx NoRoot
 - ps: $mypwd = ConvertTo-SecureString -String "jukatest" -Force -AsPlainText
 - ps: $Thumbprint = (Get-PfxData -Password $mypwd -FilePath "./Juka.pfx").EndEntityCertificates.Thumbprint
-- ps: dotnet publish JukaApp.sln -f net7.0-android -c Release /p:AndroidKeyStore=True /p:AndroidSigningKeyStore=myapp.keystore /p:AndroidSigningKeyAlias=key /p:AndroidSigningKeyPass=jukarocks /p:AndroidSigningStorePass=jukarocks 
-- ps: dotnet publish JukaApp.sln -f net7.0-windows10.0.19041.0 -c Debug /p:PackageCertificateThumbprint="$Thumbprint" /p:AppxPackageSigningEnabled=true
-- ps: Rename-Item -Path "bin\Debug\net7.0-windows10.0.19041.0\win10-x64\AppPackages\JukaApp_1.0.0.1_Debug_Test\JukaApp_1.0.0.1_x64_Debug.msix" -NewName "Juka_Windows_App_$env:MY_AV.msix"
-- ps: Rename-Item -Path "bin\Release\net7.0-android\publish\com.jukalang.jukaapp-Signed.apk" -NewName "Juka_Android_App_$env:MY_AV.apk"
+- ps: dotnet publish JukaApp.sln -f net8.0-android -c Release /p:AndroidKeyStore=True /p:AndroidSigningKeyStore=myapp.keystore /p:AndroidSigningKeyAlias=key /p:AndroidSigningKeyPass=jukarocks /p:AndroidSigningStorePass=jukarocks 
+- ps: dotnet publish JukaApp.sln -f net8.0-windows10.0.19041.0 -c Debug /p:PackageCertificateThumbprint="$Thumbprint" /p:AppxPackageSigningEnabled=true
+- ps: Rename-Item -Path "bin\Debug\net8.0-windows10.0.19041.0\win10-x64\AppPackages\JukaApp_1.0.0.1_Debug_Test\JukaApp_1.0.0.1_x64_Debug.msix" -NewName "Juka_Windows_App_$env:MY_AV.msix"
+- ps: Rename-Item -Path "bin\Release\net8.0-android\publish\com.jukalang.jukaapp-Signed.apk" -NewName "Juka_Android_App_$env:MY_AV.apk"
 
 artifacts:
-- path: 'bin\Debug\net7.0-windows10.0.19041.0\win10-x64\AppPackages\JukaApp_1.0.0.1_Debug_Test\Juka_Windows_App_$(APPVEYOR_BUILD_VERSION).msix'
+- path: 'bin\Debug\net8.0-windows10.0.19041.0\win10-x64\AppPackages\JukaApp_1.0.0.1_Debug_Test\Juka_Windows_App_$(APPVEYOR_BUILD_VERSION).msix'
   name: Juka_Windows_App_$(APPVEYOR_BUILD_VERSION).msix
 
-- path: 'bin\Release\net7.0-android\publish\Juka_Android_App_$(APPVEYOR_BUILD_VERSION).apk'
+- path: 'bin\Release\net8.0-android\publish\Juka_Android_App_$(APPVEYOR_BUILD_VERSION).apk'
   name: Juka_Android_App_$(APPVEYOR_BUILD_VERSION).apk
 
 
@@ -77,7 +77,7 @@ deploy:
     release: "📦 JukaApp v$(MY_AV)"
     description: "## 🍂 Juka Changes \n $(changelog) \n ## 📱 App Changes \n $(MY_XT)"
     auth_token:
-      secure: XCqLJKrsMnRCCEEcsPL53Emba/2GrP172INtXx86eu5XBbed614ug/2dcx8MZwmr
+      secure: v/vwWedaFbZZt7xBtarpKXtoaub9EY/zbvwdUz9Yccsc0rykWiDaV1zYuMjDb8kn
     draft: false
     prerelease: false
     on:
