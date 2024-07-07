@@ -35,9 +35,9 @@ Enter Your Code Below and Click Run: <br/><br/>
     @foreach (var entry in tabs.GetCurrentTab().Output.List())
     {
         <div class="entry">
-            <span class="eon">[@entry.started.ToString("F")]</span><span class="outside"> [Running Juka...]</span><br/>
-            <span class="inside" @onclick="@(() => CopyToClipboard(entry.message))" >@(entry.message)</span><br />
-            <span class="eon">[@entry.completed.ToString("F")]</span><span class="outsidet"> [Completed]</span>
+            <span class="eon">[@entry.Started.ToString("F")]</span><span class="outside"> [Running Juka...]</span><br/>
+            <span class="inside" @onclick="@(() => CopyToClipboard(entry.Message))" >@(entry.Message)</span><br />
+            <span class="eon">[@entry.Completed.ToString("F")]</span><span class="outsidet"> [Completed]</span>
         </div>
      }
 </div>
@@ -46,7 +46,7 @@ Enter Your Code Below and Click Run: <br/><br/>
 
     [Parameter]
     [SupplyParameterFromQuery(Name = "code")]
-    public string Data { get; set; }
+    public string? Data { get; set; }
 
     public TabList tabs = new();
 
@@ -54,7 +54,7 @@ Enter Your Code Below and Click Run: <br/><br/>
     private string UriValue { get; set; } = "";
     private string DarkMode { get; set; } = "🌕";
 
-    private StandaloneCodeEditor _editor;
+    private StandaloneCodeEditor? _editor;
     private StandaloneEditorConstructionOptions EditorConstructionOptions(StandaloneCodeEditor editor)
     {
         _editor = editor;
@@ -82,44 +82,9 @@ Enter Your Code Below and Click Run: <br/><br/>
     {
         DateTime starttime = DateTime.Now;
         await JS.InvokeVoidAsync("blazorMonaco.languages.register");
-        await Global.DefineTheme("JukaTheme", new StandaloneThemeData
-        {
-            Base = "vs",
-            Inherit = true,
-            Rules = new List<TokenThemeRule>
-            {
-                new() { Token = "func", Foreground = "00e0bc" },
-                new() { Token = "keyword", Foreground = "FF4500" },
-                new() { Token = "number", Foreground = "54a154" },
-                new() { Token = "comment", Foreground = "888ed1" }
-            },
-            Colors = new Dictionary<string, string>
-            {
-                ["editor.background"] = "#FFFFFF",
-                ["editorCursor.foreground"] = "#363636",
-                ["editorLineNumber.foreground"] = "#DADADA"
-            }
-        });
-        await Global.DefineTheme("JukaThemeDark", new StandaloneThemeData
-        {
-            Base = "vs-dark",
-            Inherit = true,
-            Rules = new List<TokenThemeRule>
-            {
-                new() { Token = "func", Foreground = "00e0bc" },
-                new() { Token = "keyword", Foreground = "FF4500" },
-                new() { Token = "number", Foreground = "54a154" },
-                new() { Token = "comment", Foreground = "888ed1" }
-            },
-            Colors = new Dictionary<string, string>
-            {
-                ["editor.background"] = "#363636",
-                ["editorCursor.foreground"] = "#E0E0E0",
-                ["editorLineNumber.foreground"] = "#7A7A7A"
-            }
-        });
-
-        await Global.SetTheme("JukaTheme");
+        
+        
+        await BlazorMonaco.Editor.Global.SetTheme(JS, "JukaTheme");
         tabs.GetCurrentTab().Output.Add("Juka Loaded. Click \"Run Code\" to run the code!",starttime);
     }
 
@@ -216,13 +181,13 @@ Enter Your Code Below and Click Run: <br/><br/>
     {
         if (DarkMode == "🌕")
         {
-            await Global.SetTheme("JukaThemeDark");
+            await BlazorMonaco.Editor.Global.SetTheme(JS, "JukaThemeDark");
             await JS.InvokeVoidAsync("blazorMonaco.languages.dark");
             DarkMode = "🌞";
         }
         else
         {
-            await Global.SetTheme("JukaTheme");
+            await BlazorMonaco.Editor.Global.SetTheme(JS, "JukaTheme");
             await JS.InvokeVoidAsync("blazorMonaco.languages.light");
             DarkMode = "🌕";
         }

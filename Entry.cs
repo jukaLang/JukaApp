@@ -1,17 +1,10 @@
 ﻿namespace JukaApp
 {
-    public class Entry
+    public class Entry(string messageIn, DateTime startedIn)
     {
-        public string message { get; }
+        public string Message { get; } = messageIn;
 
-        public DateTime started { get; }
-        public DateTime completed { get; }
-
-        public Entry(string messageIn, DateTime startedIn)
-        {
-            message = messageIn;
-            started = startedIn;
-            completed = DateTime.Now;
-        }
+        public DateTime Started { get; } = startedIn;
+        public DateTime Completed { get; } = DateTime.Now;
     }
 }

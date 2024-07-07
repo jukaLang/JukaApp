@@ -30,7 +30,8 @@
             if (CurrentTab > 0)
             {
                 CurrentTab--;
-            } else if(tabs.Any())
+            }
+            else if (tabs.Count == 0)
             {
                 CurrentTab = 0;
             }
